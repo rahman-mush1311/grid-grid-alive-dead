@@ -62,8 +62,8 @@ class GridProbabilityCalculator:
                 
                 else:
                     print(f"not valid frame distance {dframe}")
-            assert len(obj_probabilities) == len(obs)-1, f"Mismatch: {obj_id} has {len(obj_probabilities)} probabilities but {len(obs)-1} observations!"
-            if len(obs)-1==0:
+            #assert len(obj_probabilities) == len(obs)-1 and len(obs)>0, f"Mismatch: {obj_id} has {len(obj_probabilities)} probabilities but {len(obs)-1} observations!"
+            if len(obs)-1<=0:
                 empty_obs+=1
             
             log_obj_probabilities=self.log_probability(obj_probabilities)

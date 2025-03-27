@@ -1,0 +1,618 @@
+   1,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_001\Image_001.png', cX=  82, cY= 915, Frame=   167
+   1,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_001\Image_002.png', cX=  49, cY= 894, Frame=   168
+   2,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_001.png', cX=  99, cY=1390, Frame=   169
+   2,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_002.png', cX= 167, cY=1391, Frame=   170
+   2,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_003.png', cX= 233, cY=1392, Frame=   171
+   2,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_004.png', cX= 298, cY=1392, Frame=   172
+   2,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_005.png', cX= 361, cY=1391, Frame=   173
+   2,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_006.png', cX= 424, cY=1392, Frame=   174
+   2,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_007.png', cX= 487, cY=1391, Frame=   175
+   2,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_008.png', cX= 548, cY=1391, Frame=   176
+   3,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_001.png', cX= 564, cY= 901, Frame=   176
+   2,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_009.png', cX= 610, cY=1391, Frame=   177
+   3,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_002.png', cX= 620, cY= 901, Frame=   177
+   2,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_010.png', cX= 671, cY=1390, Frame=   178
+   2,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_011.png', cX= 732, cY=1390, Frame=   179
+   2,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_012.png', cX= 792, cY=1389, Frame=   180
+   2,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_013.png', cX= 852, cY=1387, Frame=   181
+   2,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_014.png', cX= 912, cY=1387, Frame=   182
+   2,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_015.png', cX= 972, cY=1386, Frame=   183
+   3,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_003.png', cX= 619, cY= 971, Frame=   183
+   2,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_016.png', cX=1030, cY=1385, Frame=   184
+   3,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_004.png', cX= 679, cY= 971, Frame=   184
+   2,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_017.png', cX=1089, cY=1385, Frame=   185
+   3,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_005.png', cX= 738, cY= 970, Frame=   185
+   2,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_018.png', cX=1146, cY=1384, Frame=   186
+   3,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_006.png', cX= 796, cY= 969, Frame=   186
+   2,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_019.png', cX=1204, cY=1382, Frame=   187
+   3,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_007.png', cX= 855, cY= 969, Frame=   187
+   2,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_020.png', cX=1262, cY=1382, Frame=   188
+   3,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_008.png', cX= 914, cY= 968, Frame=   188
+   2,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_021.png', cX=1320, cY=1380, Frame=   189
+   3,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_009.png', cX= 972, cY= 968, Frame=   189
+   2,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_022.png', cX=1378, cY=1379, Frame=   190
+   3,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_010.png', cX=1031, cY= 966, Frame=   190
+   4,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_001.png', cX= 207, cY= 545, Frame=   190
+   2,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_023.png', cX=1437, cY=1379, Frame=   191
+   3,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_011.png', cX=1089, cY= 966, Frame=   191
+   4,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_002.png', cX= 264, cY= 544, Frame=   191
+   2,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_024.png', cX=1493, cY=1378, Frame=   192
+   3,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_012.png', cX=1148, cY= 965, Frame=   192
+   4,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_003.png', cX= 319, cY= 542, Frame=   192
+   2,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_025.png', cX=1551, cY=1377, Frame=   193
+   3,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_013.png', cX=1206, cY= 965, Frame=   193
+   4,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_004.png', cX= 375, cY= 541, Frame=   193
+   3,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_014.png', cX=1263, cY= 964, Frame=   194
+   4,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_005.png', cX= 430, cY= 540, Frame=   194
+   2,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_026.png', cX=1664, cY=1374, Frame=   195
+   3,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_015.png', cX=1321, cY= 963, Frame=   195
+   4,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_006.png', cX= 485, cY= 539, Frame=   195
+   2,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_027.png', cX=1721, cY=1374, Frame=   196
+   3,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_016.png', cX=1379, cY= 963, Frame=   196
+   4,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_007.png', cX= 539, cY= 539, Frame=   196
+   2,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_028.png', cX=1778, cY=1373, Frame=   197
+   3,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_017.png', cX=1436, cY= 962, Frame=   197
+   4,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_008.png', cX= 594, cY= 539, Frame=   197
+   2,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_029.png', cX=1834, cY=1372, Frame=   198
+   3,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_018.png', cX=1493, cY= 961, Frame=   198
+   4,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_009.png', cX= 647, cY= 538, Frame=   198
+   2,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_030.png', cX=1891, cY=1370, Frame=   199
+   3,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_019.png', cX=1551, cY= 960, Frame=   199
+   4,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_010.png', cX= 701, cY= 537, Frame=   199
+   2,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_031.png', cX=1947, cY=1370, Frame=   200
+   3,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_020.png', cX=1608, cY= 959, Frame=   200
+   4,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_011.png', cX= 755, cY= 536, Frame=   200
+   2,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_032.png', cX=2004, cY=1369, Frame=   201
+   3,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_021.png', cX=1665, cY= 957, Frame=   201
+   4,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_012.png', cX= 809, cY= 536, Frame=   201
+   2,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_033.png', cX=2061, cY=1369, Frame=   202
+   3,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_022.png', cX=1723, cY= 958, Frame=   202
+   4,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_013.png', cX= 863, cY= 536, Frame=   202
+   2,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_034.png', cX=2117, cY=1368, Frame=   203
+   3,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_023.png', cX=1780, cY= 957, Frame=   203
+   4,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_014.png', cX= 917, cY= 535, Frame=   203
+   2,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_035.png', cX=2172, cY=1367, Frame=   204
+   3,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_024.png', cX=1837, cY= 956, Frame=   204
+   4,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_015.png', cX= 971, cY= 534, Frame=   204
+   2,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_036.png', cX=2228, cY=1365, Frame=   205
+   3,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_025.png', cX=1894, cY= 956, Frame=   205
+   4,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_016.png', cX=1023, cY= 534, Frame=   205
+   2,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_037.png', cX=2283, cY=1365, Frame=   206
+   3,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_026.png', cX=1951, cY= 955, Frame=   206
+   4,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_017.png', cX=1077, cY= 533, Frame=   206
+   2,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_038.png', cX=2339, cY=1365, Frame=   207
+   3,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_027.png', cX=2007, cY= 954, Frame=   207
+   4,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_018.png', cX=1130, cY= 533, Frame=   207
+   2,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_039.png', cX=2394, cY=1363, Frame=   208
+   3,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_028.png', cX=2064, cY= 954, Frame=   208
+   4,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_019.png', cX=1182, cY= 533, Frame=   208
+   2,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_040.png', cX=2449, cY=1362, Frame=   209
+   3,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_029.png', cX=2120, cY= 953, Frame=   209
+   4,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_020.png', cX=1235, cY= 532, Frame=   209
+   2,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_041.png', cX=2504, cY=1361, Frame=   210
+   3,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_030.png', cX=2177, cY= 952, Frame=   210
+   4,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_021.png', cX=1287, cY= 532, Frame=   210
+   5,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_001.png', cX= 208, cY=1609, Frame=   210
+   2,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_042.png', cX=2560, cY=1362, Frame=   211
+   3,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_031.png', cX=2233, cY= 951, Frame=   211
+   4,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_022.png', cX=1341, cY= 532, Frame=   211
+   5,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_002.png', cX= 272, cY=1610, Frame=   211
+   2,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_043.png', cX=2615, cY=1361, Frame=   212
+   3,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_032.png', cX=2290, cY= 951, Frame=   212
+   4,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_023.png', cX=1393, cY= 532, Frame=   212
+   5,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_003.png', cX= 336, cY=1611, Frame=   212
+   2,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_044.png', cX=2669, cY=1360, Frame=   213
+   3,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_033.png', cX=2347, cY= 949, Frame=   213
+   4,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_024.png', cX=1445, cY= 531, Frame=   213
+   5,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_004.png', cX= 399, cY=1612, Frame=   213
+   2,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_045.png', cX=2723, cY=1360, Frame=   214
+   3,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_034.png', cX=2404, cY= 949, Frame=   214
+   4,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_025.png', cX=1497, cY= 532, Frame=   214
+   5,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_005.png', cX= 460, cY=1612, Frame=   214
+   2,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_046.png', cX=2778, cY=1358, Frame=   215
+   3,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_035.png', cX=2460, cY= 948, Frame=   215
+   4,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_026.png', cX=1548, cY= 532, Frame=   215
+   5,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_006.png', cX= 521, cY=1612, Frame=   215
+   6,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_001.png', cX=1744, cY=1390, Frame=   215
+   2,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_047.png', cX=2832, cY=1358, Frame=   216
+   3,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_036.png', cX=2513, cY= 947, Frame=   216
+   4,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_027.png', cX=1600, cY= 532, Frame=   216
+   5,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_007.png', cX= 582, cY=1613, Frame=   216
+   6,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_002.png', cX=1779, cY=1388, Frame=   216
+   2,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_048.png', cX=2886, cY=1358, Frame=   217
+   3,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_037.png', cX=2569, cY= 947, Frame=   217
+   4,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_028.png', cX=1651, cY= 533, Frame=   217
+   5,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_008.png', cX= 642, cY=1614, Frame=   217
+   6,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_003.png', cX=1818, cY=1388, Frame=   217
+   2,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_049.png', cX=2940, cY=1358, Frame=   218
+   3,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_038.png', cX=2624, cY= 946, Frame=   218
+   4,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_029.png', cX=1703, cY= 533, Frame=   218
+   5,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_009.png', cX= 702, cY=1614, Frame=   218
+   6,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_004.png', cX=1859, cY=1388, Frame=   218
+   2,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_050.png', cX=2994, cY=1357, Frame=   219
+   3,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_039.png', cX=2680, cY= 945, Frame=   219
+   4,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_030.png', cX=1754, cY= 532, Frame=   219
+   5,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_010.png', cX= 761, cY=1613, Frame=   219
+   6,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_005.png', cX=1898, cY=1387, Frame=   219
+   2,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_051.png', cX=3048, cY=1357, Frame=   220
+   3,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_040.png', cX=2735, cY= 944, Frame=   220
+   4,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_031.png', cX=1806, cY= 532, Frame=   220
+   5,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_011.png', cX= 821, cY=1613, Frame=   220
+   6,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_006.png', cX=1938, cY=1387, Frame=   220
+   2,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_052.png', cX=3104, cY=1358, Frame=   221
+   3,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_041.png', cX=2789, cY= 944, Frame=   221
+   4,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_032.png', cX=1857, cY= 532, Frame=   221
+   5,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_012.png', cX= 880, cY=1613, Frame=   221
+   6,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_007.png', cX=1979, cY=1387, Frame=   221
+   7,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_001.png', cX= 212, cY= 359, Frame=   221
+   2,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_053.png', cX=3157, cY=1358, Frame=   222
+   3,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_042.png', cX=2845, cY= 943, Frame=   222
+   4,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_033.png', cX=1909, cY= 532, Frame=   222
+   5,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_013.png', cX= 940, cY=1612, Frame=   222
+   7,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_002.png', cX= 271, cY= 357, Frame=   222
+   8,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_001.png', cX= 212, cY= 844, Frame=   222
+   3,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_043.png', cX=2900, cY= 942, Frame=   223
+   4,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_034.png', cX=1961, cY= 531, Frame=   223
+   5,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_014.png', cX=1000, cY=1612, Frame=   223
+   7,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_003.png', cX= 329, cY= 355, Frame=   223
+   8,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_002.png', cX= 264, cY= 843, Frame=   223
+   2,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_054.png', cX=3266, cY=1359, Frame=   224
+   3,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_044.png', cX=2955, cY= 941, Frame=   224
+   4,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_035.png', cX=2012, cY= 530, Frame=   224
+   5,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_015.png', cX=1058, cY=1611, Frame=   224
+   6,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_008.png', cX=2099, cY=1384, Frame=   224
+   7,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_004.png', cX= 385, cY= 353, Frame=   224
+   8,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_003.png', cX= 313, cY= 843, Frame=   224
+   2,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_055.png', cX=3320, cY=1361, Frame=   225
+   3,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_045.png', cX=3011, cY= 941, Frame=   225
+   4,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_036.png', cX=2064, cY= 530, Frame=   225
+   5,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_016.png', cX=1116, cY=1610, Frame=   225
+   6,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_009.png', cX=2138, cY=1383, Frame=   225
+   7,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_005.png', cX= 441, cY= 352, Frame=   225
+   8,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_004.png', cX= 362, cY= 842, Frame=   225
+   2,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_056.png', cX=3373, cY=1362, Frame=   226
+   3,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_046.png', cX=3066, cY= 940, Frame=   226
+   4,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_037.png', cX=2115, cY= 529, Frame=   226
+   5,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_017.png', cX=1174, cY=1610, Frame=   226
+   6,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_010.png', cX=2178, cY=1382, Frame=   226
+   7,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_006.png', cX= 497, cY= 351, Frame=   226
+   8,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_005.png', cX= 411, cY= 841, Frame=   226
+   2,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_057.png', cX=3427, cY=1364, Frame=   227
+   3,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_047.png', cX=3120, cY= 940, Frame=   227
+   4,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_038.png', cX=2166, cY= 529, Frame=   227
+   5,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_018.png', cX=1231, cY=1609, Frame=   227
+   6,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_011.png', cX=2217, cY=1383, Frame=   227
+   7,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_007.png', cX= 552, cY= 350, Frame=   227
+   8,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_006.png', cX= 459, cY= 840, Frame=   227
+   3,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_048.png', cX=3174, cY= 939, Frame=   228
+   4,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_039.png', cX=2216, cY= 528, Frame=   228
+   5,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_019.png', cX=1289, cY=1608, Frame=   228
+   6,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_012.png', cX=2257, cY=1382, Frame=   228
+   7,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_008.png', cX= 606, cY= 349, Frame=   228
+   8,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_007.png', cX= 505, cY= 840, Frame=   228
+   2,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_058.png', cX=3535, cY=1368, Frame=   229
+   3,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_049.png', cX=3227, cY= 938, Frame=   229
+   4,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_040.png', cX=2268, cY= 528, Frame=   229
+   5,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_020.png', cX=1347, cY=1607, Frame=   229
+   6,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_013.png', cX=2296, cY=1381, Frame=   229
+   7,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_009.png', cX= 661, cY= 347, Frame=   229
+   8,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_008.png', cX= 554, cY= 839, Frame=   229
+   2,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_059.png', cX=3591, cY=1373, Frame=   230
+   3,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_050.png', cX=3281, cY= 938, Frame=   230
+   4,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_041.png', cX=2319, cY= 527, Frame=   230
+   5,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_021.png', cX=1404, cY=1606, Frame=   230
+   6,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_014.png', cX=2335, cY=1381, Frame=   230
+   7,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_010.png', cX= 715, cY= 346, Frame=   230
+   8,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_009.png', cX= 601, cY= 839, Frame=   230
+   2,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_060.png', cX=3648, cY=1377, Frame=   231
+   3,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_051.png', cX=3334, cY= 937, Frame=   231
+   4,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_042.png', cX=2370, cY= 527, Frame=   231
+   5,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_022.png', cX=1462, cY=1606, Frame=   231
+   6,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_015.png', cX=2374, cY=1380, Frame=   231
+   7,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_011.png', cX= 769, cY= 346, Frame=   231
+   8,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_010.png', cX= 649, cY= 838, Frame=   231
+   2,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_061.png', cX=3706, cY=1381, Frame=   232
+   3,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_052.png', cX=3389, cY= 936, Frame=   232
+   4,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_043.png', cX=2421, cY= 527, Frame=   232
+   5,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_023.png', cX=1520, cY=1604, Frame=   232
+   6,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_006\Image_016.png', cX=2413, cY=1380, Frame=   232
+   7,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_012.png', cX= 825, cY= 345, Frame=   232
+   8,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_011.png', cX= 696, cY= 837, Frame=   232
+   2,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_062.png', cX=3766, cY=1384, Frame=   233
+   3,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_053.png', cX=3440, cY= 934, Frame=   233
+   4,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_044.png', cX=2471, cY= 526, Frame=   233
+   5,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_024.png', cX=1577, cY=1603, Frame=   233
+   7,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_013.png', cX= 879, cY= 345, Frame=   233
+   8,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_012.png', cX= 743, cY= 837, Frame=   233
+   2,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_063.png', cX=3827, cY=1387, Frame=   234
+   3,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_054.png', cX=3490, cY= 931, Frame=   234
+   4,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_045.png', cX=2522, cY= 525, Frame=   234
+   5,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_025.png', cX=1634, cY=1602, Frame=   234
+   7,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_014.png', cX= 933, cY= 344, Frame=   234
+   8,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_013.png', cX= 791, cY= 836, Frame=   234
+   2,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_064.png', cX=3888, cY=1389, Frame=   235
+   3,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_055.png', cX=3540, cY= 926, Frame=   235
+   4,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_046.png', cX=2572, cY= 525, Frame=   235
+   5,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_026.png', cX=1691, cY=1601, Frame=   235
+   7,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_015.png', cX= 986, cY= 344, Frame=   235
+   8,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_014.png', cX= 837, cY= 835, Frame=   235
+   2,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_065.png', cX=3950, cY=1391, Frame=   236
+   3,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_056.png', cX=3590, cY= 920, Frame=   236
+   4,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_047.png', cX=2622, cY= 526, Frame=   236
+   5,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_027.png', cX=1747, cY=1600, Frame=   236
+   7,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_016.png', cX=1040, cY= 344, Frame=   236
+   8,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_015.png', cX= 883, cY= 835, Frame=   236
+   9,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_001.png', cX= 245, cY=1605, Frame=   236
+   2,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_002\Image_066.png', cX=4012, cY=1390, Frame=   237
+   3,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_057.png', cX=3644, cY= 911, Frame=   237
+   4,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_048.png', cX=2672, cY= 525, Frame=   237
+   5,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_028.png', cX=1804, cY=1600, Frame=   237
+   7,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_017.png', cX=1094, cY= 345, Frame=   237
+   8,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_016.png', cX= 929, cY= 835, Frame=   237
+   9,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_002.png', cX= 309, cY=1606, Frame=   237
+   3,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_058.png', cX=3700, cY= 903, Frame=   238
+   4,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_049.png', cX=2721, cY= 524, Frame=   238
+   5,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_029.png', cX=1860, cY=1599, Frame=   238
+   7,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_018.png', cX=1146, cY= 344, Frame=   238
+   8,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_017.png', cX= 975, cY= 834, Frame=   238
+   9,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_003.png', cX= 373, cY=1606, Frame=   238
+   3,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_059.png', cX=3756, cY= 897, Frame=   239
+   4,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_050.png', cX=2771, cY= 524, Frame=   239
+   5,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_030.png', cX=1917, cY=1598, Frame=   239
+   7,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_019.png', cX=1201, cY= 344, Frame=   239
+   8,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_018.png', cX=1021, cY= 833, Frame=   239
+   9,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_004.png', cX= 435, cY=1606, Frame=   239
+   3,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_060.png', cX=3813, cY= 892, Frame=   240
+   4,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_051.png', cX=2820, cY= 523, Frame=   240
+   5,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_031.png', cX=1973, cY=1597, Frame=   240
+   7,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_020.png', cX=1253, cY= 344, Frame=   240
+   8,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_019.png', cX=1067, cY= 833, Frame=   240
+   9,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_005.png', cX= 498, cY=1606, Frame=   240
+   3,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_061.png', cX=3866, cY= 889, Frame=   241
+   4,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_052.png', cX=2871, cY= 523, Frame=   241
+   5,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_032.png', cX=2030, cY=1597, Frame=   241
+   7,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_021.png', cX=1307, cY= 344, Frame=   241
+   8,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_020.png', cX=1112, cY= 833, Frame=   241
+   9,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_006.png', cX= 560, cY=1607, Frame=   241
+   3,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_062.png', cX=3921, cY= 885, Frame=   242
+   4,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_053.png', cX=2921, cY= 522, Frame=   242
+   5,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_033.png', cX=2087, cY=1596, Frame=   242
+   7,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_022.png', cX=1361, cY= 344, Frame=   242
+   8,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_021.png', cX=1158, cY= 833, Frame=   242
+   9,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_007.png', cX= 622, cY=1607, Frame=   242
+   3,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_063.png', cX=3979, cY= 881, Frame=   243
+   4,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_054.png', cX=2971, cY= 522, Frame=   243
+   5,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_034.png', cX=2143, cY=1595, Frame=   243
+   7,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_023.png', cX=1414, cY= 344, Frame=   243
+   8,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_022.png', cX=1205, cY= 832, Frame=   243
+   9,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_008.png', cX= 684, cY=1608, Frame=   243
+   3,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_003\Image_064.png', cX=4039, cY= 885, Frame=   244
+   4,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_055.png', cX=3021, cY= 521, Frame=   244
+   5,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_035.png', cX=2200, cY=1595, Frame=   244
+   7,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_024.png', cX=1467, cY= 344, Frame=   244
+   8,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_023.png', cX=1251, cY= 831, Frame=   244
+   9,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_009.png', cX= 745, cY=1607, Frame=   244
+   4,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_056.png', cX=3070, cY= 520, Frame=   245
+   5,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_036.png', cX=2255, cY=1594, Frame=   245
+   7,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_025.png', cX=1520, cY= 344, Frame=   245
+   8,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_024.png', cX=1297, cY= 831, Frame=   245
+   9,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_010.png', cX= 805, cY=1607, Frame=   245
+   4,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_057.png', cX=3119, cY= 520, Frame=   246
+   5,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_037.png', cX=2311, cY=1593, Frame=   246
+   7,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_026.png', cX=1572, cY= 344, Frame=   246
+   8,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_025.png', cX=1341, cY= 830, Frame=   246
+   9,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_011.png', cX= 866, cY=1607, Frame=   246
+   4,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_058.png', cX=3169, cY= 520, Frame=   247
+   5,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_038.png', cX=2366, cY=1593, Frame=   247
+   7,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_027.png', cX=1625, cY= 345, Frame=   247
+   8,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_026.png', cX=1386, cY= 830, Frame=   247
+   9,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_012.png', cX= 925, cY=1607, Frame=   247
+   4,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_059.png', cX=3218, cY= 518, Frame=   248
+   5,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_039.png', cX=2421, cY=1592, Frame=   248
+   7,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_028.png', cX=1676, cY= 345, Frame=   248
+   8,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_027.png', cX=1431, cY= 829, Frame=   248
+   9,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_013.png', cX= 985, cY=1606, Frame=   248
+   4,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_060.png', cX=3268, cY= 517, Frame=   249
+   5,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_040.png', cX=2476, cY=1591, Frame=   249
+   7,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_029.png', cX=1728, cY= 344, Frame=   249
+   8,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_028.png', cX=1476, cY= 828, Frame=   249
+   9,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_014.png', cX=1044, cY=1605, Frame=   249
+   4,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_061.png', cX=3317, cY= 517, Frame=   250
+   5,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_041.png', cX=2531, cY=1591, Frame=   250
+   7,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_030.png', cX=1779, cY= 345, Frame=   250
+   8,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_029.png', cX=1521, cY= 828, Frame=   250
+   9,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_015.png', cX=1102, cY=1605, Frame=   250
+   4,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_062.png', cX=3367, cY= 517, Frame=   251
+   5,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_042.png', cX=2586, cY=1590, Frame=   251
+   7,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_031.png', cX=1831, cY= 345, Frame=   251
+   8,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_030.png', cX=1567, cY= 828, Frame=   251
+   9,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_016.png', cX=1161, cY=1604, Frame=   251
+   4,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_063.png', cX=3417, cY= 516, Frame=   252
+   5,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_043.png', cX=2642, cY=1590, Frame=   252
+   7,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_032.png', cX=1884, cY= 345, Frame=   252
+   8,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_031.png', cX=1611, cY= 827, Frame=   252
+   9,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_017.png', cX=1220, cY=1603, Frame=   252
+   4,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_064.png', cX=3466, cY= 514, Frame=   253
+   5,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_044.png', cX=2697, cY=1589, Frame=   253
+   7,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_033.png', cX=1936, cY= 345, Frame=   253
+   8,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_032.png', cX=1657, cY= 826, Frame=   253
+   9,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_018.png', cX=1279, cY=1602, Frame=   253
+   4,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_065.png', cX=3517, cY= 513, Frame=   254
+   5,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_045.png', cX=2752, cY=1588, Frame=   254
+   7,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_034.png', cX=1989, cY= 345, Frame=   254
+   8,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_033.png', cX=1703, cY= 826, Frame=   254
+   9,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_019.png', cX=1338, cY=1601, Frame=   254
+   4,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_066.png', cX=3566, cY= 514, Frame=   255
+   5,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_046.png', cX=2806, cY=1588, Frame=   255
+   7,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_035.png', cX=2041, cY= 345, Frame=   255
+   8,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_034.png', cX=1748, cY= 826, Frame=   255
+   9,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_020.png', cX=1396, cY=1600, Frame=   255
+   4,   67, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_067.png', cX=3617, cY= 515, Frame=   256
+   5,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_047.png', cX=2861, cY=1588, Frame=   256
+   7,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_036.png', cX=2094, cY= 345, Frame=   256
+   8,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_035.png', cX=1793, cY= 825, Frame=   256
+   9,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_021.png', cX=1453, cY=1599, Frame=   256
+   4,   68, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_068.png', cX=3667, cY= 514, Frame=   257
+   5,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_048.png', cX=2915, cY=1588, Frame=   257
+   7,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_037.png', cX=2145, cY= 345, Frame=   257
+   8,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_036.png', cX=1837, cY= 825, Frame=   257
+   9,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_022.png', cX=1511, cY=1599, Frame=   257
+   4,   69, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_069.png', cX=3719, cY= 514, Frame=   258
+   5,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_049.png', cX=2970, cY=1587, Frame=   258
+   7,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_038.png', cX=2197, cY= 344, Frame=   258
+   8,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_037.png', cX=1881, cY= 824, Frame=   258
+   9,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_023.png', cX=1569, cY=1597, Frame=   258
+   4,   70, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_070.png', cX=3771, cY= 514, Frame=   259
+   5,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_050.png', cX=3024, cY=1587, Frame=   259
+   7,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_039.png', cX=2248, cY= 343, Frame=   259
+   8,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_038.png', cX=1925, cY= 824, Frame=   259
+   9,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_024.png', cX=1626, cY=1596, Frame=   259
+   4,   71, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_071.png', cX=3824, cY= 515, Frame=   260
+   5,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_051.png', cX=3079, cY=1587, Frame=   260
+   7,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_040.png', cX=2299, cY= 343, Frame=   260
+   8,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_039.png', cX=1970, cY= 823, Frame=   260
+   9,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_025.png', cX=1684, cY=1596, Frame=   260
+   4,   72, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_072.png', cX=3877, cY= 517, Frame=   261
+   5,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_052.png', cX=3133, cY=1587, Frame=   261
+   7,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_041.png', cX=2351, cY= 342, Frame=   261
+   8,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_040.png', cX=2015, cY= 823, Frame=   261
+   9,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_026.png', cX=1741, cY=1594, Frame=   261
+  10,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_001.png', cX=1975, cY=1769, Frame=   261
+   4,   73, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_073.png', cX=3929, cY= 519, Frame=   262
+   5,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_053.png', cX=3188, cY=1587, Frame=   262
+   7,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_042.png', cX=2402, cY= 342, Frame=   262
+   8,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_041.png', cX=2060, cY= 823, Frame=   262
+   9,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_027.png', cX=1798, cY=1594, Frame=   262
+  10,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_002.png', cX=2028, cY=1768, Frame=   262
+   4,   74, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_074.png', cX=3982, cY= 521, Frame=   263
+   5,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_054.png', cX=3243, cY=1587, Frame=   263
+   7,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_043.png', cX=2453, cY= 341, Frame=   263
+   8,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_042.png', cX=2105, cY= 821, Frame=   263
+   9,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_028.png', cX=1856, cY=1593, Frame=   263
+  10,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_003.png', cX=2083, cY=1768, Frame=   263
+   4,   75, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_075.png', cX=4034, cY= 524, Frame=   264
+   5,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_055.png', cX=3298, cY=1587, Frame=   264
+   7,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_044.png', cX=2504, cY= 340, Frame=   264
+   8,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_043.png', cX=2150, cY= 821, Frame=   264
+   9,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_029.png', cX=1913, cY=1592, Frame=   264
+  10,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_004.png', cX=2143, cY=1769, Frame=   264
+   4,   76, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_004\Image_076.png', cX=4084, cY= 527, Frame=   265
+   5,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_056.png', cX=3353, cY=1588, Frame=   265
+   7,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_045.png', cX=2555, cY= 340, Frame=   265
+   8,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_044.png', cX=2194, cY= 820, Frame=   265
+   9,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_030.png', cX=1970, cY=1591, Frame=   265
+  10,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_005.png', cX=2199, cY=1768, Frame=   265
+   5,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_057.png', cX=3408, cY=1589, Frame=   266
+   7,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_046.png', cX=2605, cY= 340, Frame=   266
+   8,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_045.png', cX=2239, cY= 820, Frame=   266
+   9,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_031.png', cX=2027, cY=1591, Frame=   266
+  10,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_006.png', cX=2254, cY=1767, Frame=   266
+   5,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_058.png', cX=3464, cY=1589, Frame=   267
+   7,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_047.png', cX=2656, cY= 339, Frame=   267
+   8,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_046.png', cX=2283, cY= 819, Frame=   267
+   9,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_032.png', cX=2083, cY=1590, Frame=   267
+  10,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_007.png', cX=2310, cY=1767, Frame=   267
+   5,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_059.png', cX=3519, cY=1590, Frame=   268
+   7,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_048.png', cX=2705, cY= 339, Frame=   268
+   8,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_047.png', cX=2326, cY= 819, Frame=   268
+   9,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_033.png', cX=2139, cY=1588, Frame=   268
+  10,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_008.png', cX=2365, cY=1767, Frame=   268
+   5,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_060.png', cX=3575, cY=1591, Frame=   269
+   7,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_049.png', cX=2755, cY= 338, Frame=   269
+   8,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_048.png', cX=2370, cY= 818, Frame=   269
+   9,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_034.png', cX=2196, cY=1588, Frame=   269
+  10,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_009.png', cX=2420, cY=1766, Frame=   269
+   5,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_061.png', cX=3631, cY=1592, Frame=   270
+   7,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_050.png', cX=2806, cY= 337, Frame=   270
+   8,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_049.png', cX=2414, cY= 817, Frame=   270
+   9,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_035.png', cX=2252, cY=1587, Frame=   270
+  10,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_010.png', cX=2475, cY=1766, Frame=   270
+   5,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_062.png', cX=3689, cY=1592, Frame=   271
+   7,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_051.png', cX=2856, cY= 336, Frame=   271
+   8,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_050.png', cX=2457, cY= 818, Frame=   271
+   9,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_036.png', cX=2308, cY=1586, Frame=   271
+  10,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_011.png', cX=2531, cY=1766, Frame=   271
+  11,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_001.png', cX= 234, cY=1215, Frame=   271
+   5,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_063.png', cX=3747, cY=1593, Frame=   272
+   7,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_052.png', cX=2906, cY= 336, Frame=   272
+   8,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_051.png', cX=2501, cY= 817, Frame=   272
+   9,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_037.png', cX=2364, cY=1586, Frame=   272
+  10,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_012.png', cX=2585, cY=1766, Frame=   272
+  11,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_002.png', cX= 284, cY=1214, Frame=   272
+   5,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_064.png', cX=3805, cY=1593, Frame=   273
+   7,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_053.png', cX=2956, cY= 335, Frame=   273
+   8,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_052.png', cX=2544, cY= 815, Frame=   273
+   9,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_038.png', cX=2420, cY=1585, Frame=   273
+  10,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_013.png', cX=2640, cY=1765, Frame=   273
+  11,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_003.png', cX= 338, cY=1213, Frame=   273
+   5,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_065.png', cX=3864, cY=1593, Frame=   274
+   7,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_054.png', cX=3006, cY= 335, Frame=   274
+   8,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_053.png', cX=2589, cY= 815, Frame=   274
+   9,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_039.png', cX=2476, cY=1584, Frame=   274
+  10,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_014.png', cX=2695, cY=1765, Frame=   274
+  11,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_004.png', cX= 390, cY=1211, Frame=   274
+   5,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_066.png', cX=3924, cY=1593, Frame=   275
+   7,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_055.png', cX=3056, cY= 335, Frame=   275
+   8,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_054.png', cX=2633, cY= 815, Frame=   275
+   9,   40, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_040.png', cX=2531, cY=1584, Frame=   275
+  10,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_015.png', cX=2749, cY=1765, Frame=   275
+  11,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_005.png', cX= 443, cY=1211, Frame=   275
+   5,   67, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_067.png', cX=3983, cY=1591, Frame=   276
+   7,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_056.png', cX=3107, cY= 335, Frame=   276
+   8,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_055.png', cX=2676, cY= 815, Frame=   276
+   9,   41, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_041.png', cX=2586, cY=1583, Frame=   276
+  10,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_016.png', cX=2803, cY=1764, Frame=   276
+  11,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_006.png', cX= 493, cY=1210, Frame=   276
+   5,   68, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_068.png', cX=4043, cY=1590, Frame=   277
+   7,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_057.png', cX=3157, cY= 335, Frame=   277
+   8,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_056.png', cX=2719, cY= 814, Frame=   277
+   9,   42, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_042.png', cX=2641, cY=1583, Frame=   277
+  10,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_017.png', cX=2858, cY=1764, Frame=   277
+  11,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_007.png', cX= 542, cY=1209, Frame=   277
+   5,   69, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_005\Image_069.png', cX=4090, cY=1588, Frame=   278
+   7,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_058.png', cX=3206, cY= 335, Frame=   278
+   8,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_057.png', cX=2762, cY= 813, Frame=   278
+   9,   43, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_043.png', cX=2696, cY=1582, Frame=   278
+  10,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_018.png', cX=2911, cY=1764, Frame=   278
+  11,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_008.png', cX= 594, cY=1208, Frame=   278
+   7,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_059.png', cX=3256, cY= 334, Frame=   279
+   8,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_058.png', cX=2804, cY= 812, Frame=   279
+   9,   44, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_044.png', cX=2751, cY=1582, Frame=   279
+  10,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_019.png', cX=2964, cY=1763, Frame=   279
+  11,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_009.png', cX= 645, cY=1208, Frame=   279
+   7,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_060.png', cX=3306, cY= 334, Frame=   280
+   8,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_059.png', cX=2847, cY= 812, Frame=   280
+   9,   45, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_045.png', cX=2805, cY=1581, Frame=   280
+  10,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_020.png', cX=3018, cY=1763, Frame=   280
+  11,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_010.png', cX= 696, cY=1207, Frame=   280
+   7,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_061.png', cX=3356, cY= 335, Frame=   281
+   8,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_060.png', cX=2891, cY= 812, Frame=   281
+   9,   46, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_046.png', cX=2859, cY=1580, Frame=   281
+  10,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_021.png', cX=3072, cY=1763, Frame=   281
+  11,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_011.png', cX= 746, cY=1206, Frame=   281
+   7,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_062.png', cX=3407, cY= 335, Frame=   282
+   8,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_061.png', cX=2934, cY= 812, Frame=   282
+   9,   47, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_047.png', cX=2915, cY=1580, Frame=   282
+  10,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_022.png', cX=3126, cY=1762, Frame=   282
+  11,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_012.png', cX= 795, cY=1205, Frame=   282
+   7,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_063.png', cX=3457, cY= 335, Frame=   283
+   8,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_062.png', cX=2978, cY= 811, Frame=   283
+   9,   48, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_048.png', cX=2969, cY=1580, Frame=   283
+  10,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_023.png', cX=3180, cY=1762, Frame=   283
+  11,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_013.png', cX= 846, cY=1204, Frame=   283
+   7,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_064.png', cX=3509, cY= 335, Frame=   284
+   8,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_063.png', cX=3022, cY= 810, Frame=   284
+   9,   49, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_049.png', cX=3025, cY=1580, Frame=   284
+  10,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_024.png', cX=3235, cY=1761, Frame=   284
+  11,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_014.png', cX= 895, cY=1203, Frame=   284
+  12,    1, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_001.png', cX= 236, cY=1325, Frame=   284
+   7,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_065.png', cX=3559, cY= 335, Frame=   285
+   8,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_064.png', cX=3065, cY= 810, Frame=   285
+   9,   50, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_050.png', cX=3079, cY=1580, Frame=   285
+  10,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_025.png', cX=3289, cY=1761, Frame=   285
+  11,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_015.png', cX= 945, cY=1203, Frame=   285
+  12,    2, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_002.png', cX= 291, cY=1326, Frame=   285
+   7,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_066.png', cX=3611, cY= 336, Frame=   286
+   8,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_065.png', cX=3109, cY= 810, Frame=   286
+   9,   51, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_051.png', cX=3135, cY=1579, Frame=   286
+  10,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_026.png', cX=3343, cY=1760, Frame=   286
+  11,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_016.png', cX= 996, cY=1202, Frame=   286
+  12,    3, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_003.png', cX= 345, cY=1325, Frame=   286
+   7,   67, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_067.png', cX=3661, cY= 337, Frame=   287
+   8,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_066.png', cX=3151, cY= 809, Frame=   287
+   9,   52, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_052.png', cX=3189, cY=1580, Frame=   287
+  10,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_027.png', cX=3398, cY=1760, Frame=   287
+  11,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_017.png', cX=1045, cY=1201, Frame=   287
+  12,    4, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_004.png', cX= 398, cY=1324, Frame=   287
+   7,   68, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_068.png', cX=3712, cY= 338, Frame=   288
+   8,   67, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_067.png', cX=3194, cY= 808, Frame=   288
+   9,   53, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_053.png', cX=3244, cY=1580, Frame=   288
+  10,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_028.png', cX=3452, cY=1760, Frame=   288
+  11,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_018.png', cX=1094, cY=1200, Frame=   288
+  12,    5, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_005.png', cX= 451, cY=1324, Frame=   288
+   7,   69, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_069.png', cX=3764, cY= 339, Frame=   289
+   8,   68, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_068.png', cX=3236, cY= 806, Frame=   289
+   9,   54, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_054.png', cX=3298, cY=1580, Frame=   289
+  10,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_029.png', cX=3507, cY=1760, Frame=   289
+  11,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_019.png', cX=1143, cY=1200, Frame=   289
+  12,    6, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_006.png', cX= 503, cY=1323, Frame=   289
+   7,   70, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_070.png', cX=3816, cY= 341, Frame=   290
+   8,   69, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_069.png', cX=3279, cY= 806, Frame=   290
+   9,   55, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_055.png', cX=3353, cY=1581, Frame=   290
+  10,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_030.png', cX=3562, cY=1760, Frame=   290
+  11,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_020.png', cX=1192, cY=1200, Frame=   290
+  12,    7, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_007.png', cX= 555, cY=1323, Frame=   290
+   7,   71, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_071.png', cX=3867, cY= 343, Frame=   291
+   8,   70, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_070.png', cX=3321, cY= 804, Frame=   291
+   9,   56, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_056.png', cX=3408, cY=1581, Frame=   291
+  10,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_031.png', cX=3617, cY=1760, Frame=   291
+  11,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_021.png', cX=1240, cY=1198, Frame=   291
+  12,    8, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_008.png', cX= 606, cY=1322, Frame=   291
+   7,   72, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_072.png', cX=3919, cY= 345, Frame=   292
+   8,   71, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_071.png', cX=3363, cY= 803, Frame=   292
+   9,   57, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_057.png', cX=3464, cY=1582, Frame=   292
+  10,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_032.png', cX=3673, cY=1760, Frame=   292
+  11,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_022.png', cX=1289, cY=1198, Frame=   292
+  12,    9, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_009.png', cX= 659, cY=1321, Frame=   292
+   7,   73, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_073.png', cX=3971, cY= 348, Frame=   293
+   8,   72, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_072.png', cX=3406, cY= 801, Frame=   293
+   9,   58, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_058.png', cX=3519, cY=1582, Frame=   293
+  10,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_033.png', cX=3729, cY=1760, Frame=   293
+  11,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_023.png', cX=1337, cY=1197, Frame=   293
+  12,   10, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_010.png', cX= 709, cY=1320, Frame=   293
+   7,   74, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_074.png', cX=4024, cY= 350, Frame=   294
+   8,   73, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_073.png', cX=3448, cY= 799, Frame=   294
+   9,   59, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_059.png', cX=3576, cY=1584, Frame=   294
+  10,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_034.png', cX=3784, cY=1758, Frame=   294
+  11,   24, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_024.png', cX=1387, cY=1195, Frame=   294
+  12,   11, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_011.png', cX= 761, cY=1319, Frame=   294
+   7,   75, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_007\Image_075.png', cX=4079, cY= 354, Frame=   295
+   8,   74, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_074.png', cX=3491, cY= 796, Frame=   295
+   9,   60, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_060.png', cX=3633, cY=1585, Frame=   295
+  10,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_035.png', cX=3841, cY=1757, Frame=   295
+  11,   25, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_025.png', cX=1435, cY=1195, Frame=   295
+  12,   12, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_012.png', cX= 812, cY=1319, Frame=   295
+   8,   75, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_075.png', cX=3534, cY= 793, Frame=   296
+   9,   61, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_061.png', cX=3691, cY=1586, Frame=   296
+  10,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_036.png', cX=3898, cY=1755, Frame=   296
+  11,   26, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_026.png', cX=1485, cY=1194, Frame=   296
+  12,   13, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_013.png', cX= 863, cY=1318, Frame=   296
+   8,   76, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_076.png', cX=3578, cY= 789, Frame=   297
+   9,   62, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_062.png', cX=3748, cY=1586, Frame=   297
+  10,   37, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_037.png', cX=3955, cY=1754, Frame=   297
+  11,   27, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_027.png', cX=1533, cY=1193, Frame=   297
+  12,   14, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_014.png', cX= 912, cY=1318, Frame=   297
+   8,   77, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_077.png', cX=3622, cY= 785, Frame=   298
+   9,   63, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_063.png', cX=3806, cY=1586, Frame=   298
+  10,   38, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_038.png', cX=4012, cY=1751, Frame=   298
+  11,   28, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_028.png', cX=1580, cY=1192, Frame=   298
+  12,   15, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_015.png', cX= 962, cY=1317, Frame=   298
+   8,   78, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_078.png', cX=3668, cY= 782, Frame=   299
+   9,   64, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_064.png', cX=3865, cY=1586, Frame=   299
+  10,   39, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_010\Image_039.png', cX=4070, cY=1749, Frame=   299
+  11,   29, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_029.png', cX=1627, cY=1192, Frame=   299
+  12,   16, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_016.png', cX=1011, cY=1316, Frame=   299
+   8,   79, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_079.png', cX=3714, cY= 778, Frame=   300
+   9,   65, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_065.png', cX=3924, cY=1586, Frame=   300
+  11,   30, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_030.png', cX=1676, cY=1191, Frame=   300
+  12,   17, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_017.png', cX=1060, cY=1315, Frame=   300
+   8,   80, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_080.png', cX=3762, cY= 774, Frame=   301
+   9,   66, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_066.png', cX=3984, cY=1585, Frame=   301
+  11,   31, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_031.png', cX=1722, cY=1191, Frame=   301
+  12,   18, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_018.png', cX=1109, cY=1314, Frame=   301
+   8,   81, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_081.png', cX=3810, cY= 772, Frame=   302
+   9,   67, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_009\Image_067.png', cX=4043, cY=1584, Frame=   302
+  11,   32, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_032.png', cX=1770, cY=1189, Frame=   302
+  12,   19, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_019.png', cX=1157, cY=1313, Frame=   302
+   8,   82, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_082.png', cX=3859, cY= 770, Frame=   303
+  11,   33, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_033.png', cX=1818, cY=1188, Frame=   303
+  12,   20, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_020.png', cX=1206, cY=1312, Frame=   303
+   8,   83, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_083.png', cX=3907, cY= 770, Frame=   304
+  11,   34, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_034.png', cX=1866, cY=1187, Frame=   304
+  12,   21, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_021.png', cX=1256, cY=1312, Frame=   304
+   8,   84, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_084.png', cX=3961, cY= 771, Frame=   305
+  11,   35, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_035.png', cX=1915, cY=1186, Frame=   305
+  12,   22, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_022.png', cX=1305, cY=1312, Frame=   305
+   8,   85, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_008\Image_085.png', cX=4015, cY= 774, Frame=   306
+  11,   36, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_011\Image_036.png', cX=1962, cY=1185, Frame=   306
+  12,   23, '..\VideoTestCases\12-27-24 Ostracod Run 1 Image 5\Images_001\Object_012\Image_023.png', cX=1354, cY=1311, Frame=   306

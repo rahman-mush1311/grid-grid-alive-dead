@@ -71,6 +71,7 @@ class OutlierModelEvaluation:
         '''
         true_labels=[]
         log_pdf_values=[]
+        
         for obj_data in curr_obs.values():
             log_pdf_values.extend(obj_data[LOG_PDFS])
             true_labels.extend([1 if obj_data[TRUE_LABELS] == ALIVE else 0] * len(obj_data[LOG_PDFS]))
@@ -84,9 +85,14 @@ class OutlierModelEvaluation:
         for i in range(1, len(roc_thresholds)):
             if round(tpr[i],2) > round(tpr[i - 1],2) or round(fpr[i],2)<round(fpr[i-1],2):
                 self.filtered_thresholds.append(roc_thresholds[i])
-        
         '''
-        plt.figure(figsize=(10, 6))
+        self.filtered_thresholds = [
+            min_vals for obj_data in curr_obs.values()
+            if obj_data.get(LOG_PDFS)
+            for min_vals in [min(obj_data[LOG_PDFS])]
+            if min_vals != 0.0
+        ]
+        
         # Plot the ROC curve
         plt.plot(fpr, tpr)
         plt.xlabel('False Positive Rate')
@@ -132,7 +138,7 @@ class OutlierModelEvaluation:
          # Display confusion matrix
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Dead (0)", "Alive (1)"])
         disp.plot(cmap="Blues")
-        disp.ax_.set_title(f"  Confusion Matrix Using ")
+        disp.ax_.set_title(f"Confusion Matrix Using")
         disp.ax_.set_xlabel("Predicted Labels")
         disp.ax_.set_ylabel("True Labels")
     
@@ -141,8 +147,9 @@ class OutlierModelEvaluation:
             f"F1-Score: {f1:.3f}\n"
             f"Recall: {recall:.3f}\n"
             f"Precision: {precision:.3f}\n"
-            f"Threshold: {self.best_accuracy_threshold:.3f}"
+            
         )
+        #f"Threshold: {self.best_accuracy_threshold:.3f}"
         disp.ax_.legend(
             handles=[
                 plt.Line2D([], [], color='white', label=metrics_text)
@@ -169,7 +176,7 @@ class OutlierModelEvaluation:
         if details[TRUE_LABELS] == label_true and details[PREDICTED_LABELS] == label_predicted
         ]
         print(len(ids))
-        print(ids)
+        #print(ids)
         
         return ids
         
@@ -183,10 +190,13 @@ class OutlierModelEvaluation:
         '''
         if obj_id.startswith("D"):
             return "D"
-        elif obj_id.endswith("a") or obj_id.endswith("p"):
+        elif obj_id.endswith("a") or obj_id.endswith("p") or obj_id.endswith("t"):
             return "A"
+        elif "1-6-25" in obj_id:
+            return "1-6-25"
+            
         else:
-            return "1-6-25" 
+            return "12-27-24"
             
     def plot_extracted_obj(self, extracted_ids, observations,label_true,label_predicted):
         '''
@@ -204,13 +214,17 @@ class OutlierModelEvaluation:
         prefix_colors = {
         "D": "red",
         "A": "blue",
-        "1-6-25": "green"
+        "1-6-25": "green",
+        "12-27-24": "pink"
         }
         i=0
-        for obj_id in misclassified_ids:
+        print(len(extracted_ids))
+        for obj_id in extracted_ids:
             x=[]
             y=[]
+            
             if obj_id in observations:
+                
                 points = observations[obj_id]
                 x = [p[1] for p in points]  # Extract x-coordinates
                 y = [p[2] for p in points]  # Extract y-coordinates
@@ -225,7 +239,9 @@ class OutlierModelEvaluation:
                 plt.title(f"{label_true} Object Labels Predicted {label_predicted} Train Set")
                 plt.legend(title=f"Object id {obj_id}")
                 plt.grid(True, linestyle="--", alpha=0.6)
-                #plt.savefig(f"ALIVE Object Labels Predicted DEAD Train Set {i}.png")
+                #plt.xlim(100, 5000)     # Set X-axis limits
+                #plt.ylim(100, 2200)
+                #plt.savefig(f"DEAD Object Labels Predicted ALIVE Train Set {i}.png")
                 i+=1
                 # Show the plot
                 plt.show()

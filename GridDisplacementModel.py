@@ -97,21 +97,10 @@ class GridDisplacementModel:
         
         self.total_mu=mean_vector
         self.total_cov_matrix=cov_matrix
-        # Print results
+        # Print results sanity check
         #print("Mean Vector:\n", mean_vector)
         #print("\nCovariance Matrix:\n", cov_matrix)
-        '''
-        scaler = sklearn.preprocessing.StandardScaler()
-        Z = scaler.fit_transform(points)  # Apply whitening
-
-        # Step 2: Compute mean and covariance of transformed data
-        Z_mean = numpy.mean(Z, axis=0)
-        Z_cov = numpy.cov(Z, rowvar=False)
-        
-        # Display results
-        print("Mean After Whitening:\n", Z_mean)
-        print("\nCovariance Matrix After Whitening:\n", Z_cov)
-        '''
+      
         
     def apply_normalization(self,grid_displacements):
         '''
