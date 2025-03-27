@@ -1,9 +1,8 @@
 from observation_parser import ParsingObservations
-#from mean_covariance_plot import get_displacements
 from GridDisplacementModel import GridDisplacementModel
 from GridProbabilityCalculator import GridProbabilityCalculator
 from GridModelEval import OutlierModelEvaluation
-#from mean_covariance_plot import mean_covariance_plot
+from mean_covariance_plot import get_displacements,mean_covariance_plot
 import numpy
 
 TRUE_LABELS = "true_labels"
@@ -69,12 +68,11 @@ def calculate_with_dead_models(curr_file_loader,dead_outlier_model,curr_set,curr
         else:
             dx_norm,dy_norm=curr_obs_params[get_file].total_mu[0],curr_obs_params[get_file].total_mu[1]
             sx_norm, sy_norm = numpy.sqrt(numpy.diag(curr_obs_params[get_file].total_cov_matrix))
-            print(f"normalization values: {dx_norm, dy_norm, sx_norm, sy_norm}")
+            print(f"normalization values for {get_file} {LABEL}: {dx_norm, dy_norm, sx_norm, sy_norm}")
         
             curr_probs,min_dead_probs=dead_outlier_model.compute_probabilities(curr_obs,dx_norm, dy_norm, sx_norm, sy_norm)
-            print(len(curr_probs))
             curr_probability_set=dead_outlier_model.combine_data_with_labels(curr_probs,curr_probability_set,LABEL) 
-            print(len(curr_probability_set))
+           
             curr_point_set=dead_outlier_model.combine_dictionary_observation(curr_obs,curr_point_set)
     
     return curr_point_set,curr_probability_set
