@@ -42,8 +42,7 @@ class ParsingObservations:
         Parameters:
         -filenames: list of filenames to parse
         Returns:
-        -dead_observations: a dictionary (object id: (frame,x_cordinate,y_coordinate)).
-        -alive_observations: a dictionary (object id: (frame,x_cordinate,y_coordinate))
+        -observations: a dictionary (object id: (frame,x_cordinate,y_coordinate)).
         """
         pattern = re.compile(r'''
         \s*(?P<object_id>\d+),
