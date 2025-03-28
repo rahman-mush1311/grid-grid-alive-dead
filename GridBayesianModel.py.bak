@@ -61,12 +61,12 @@ class BayesianModel:
             else:
                 cls=ALIVE
                 
-            curr_likelihood[obj_id] = {
-                DEAD_PDFS: dead_log_sum_pdf,
-                ALIVE_PDFS: alive_log_sum_pdf,
-                TRUE_LABELS: curr_obs_with_dead[obj_id][TRUE_LABELS],
-                PREDICTED_LABELS: cls
-            }          
+        curr_likelihood[obj_id] = {
+            DEAD_PDFS: dead_log_sum_pdf,
+            ALIVE_PDFS: alive_log_sum_pdf,
+            TRUE_LABELS: curr_obs_with_dead[obj_id][TRUE_LABELS],
+            PREDICTED_LABELS: cls
+        }          
         
         return curr_likelihood
         

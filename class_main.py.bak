@@ -294,8 +294,8 @@ def run_bayesian_model():
    
 if __name__ == "__main__":
    
-    #run_outlier_model()
-    run_bayesian_model()
+    run_outlier_model()
+    #run_bayesian_model()
     
     
     
