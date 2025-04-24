@@ -509,4 +509,4 @@ if __name__ == "__main__":
     #'AliveObjectXYs2at.txt','AliveObjectXYs3at.txt','AliveObjectXYs4at.txt','AliveObjectXYs5at.txt','AliveObjectXYs6at.txt','AliveObjectXYs8at.txt']
     #'12-27-24_1a_ObjectXYs.txt','12-27-24_1b_ObjectXYs.txt','1-3-25_1a_ObjectXYs.txt','1-6-25_1a_ObjectXYs.txt'
     #get_displacements(file_list)
-    #make_collage()
+    make_collage()

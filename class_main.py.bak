@@ -3,7 +3,7 @@ from GridDisplacementModel import GridDisplacementModel
 from GridProbabilityCalculator import GridProbabilityCalculator
 from GridModelEval import OutlierModelEvaluation
 from GridBayesianModel import BayesianModel
-from mean_covariance_plot import get_displacements,mean_covariance_plot
+from mean_covariance_plot import get_displacements,mean_covariance_plot,plot_histogram,mean_covariance_overlay_plot
 import numpy
 
 TRUE_LABELS = "true_labels"
@@ -89,8 +89,11 @@ def evaluate_train_model_with_threshold(curr_set):
     -dead_outlier_model_eval: OutlierModelEvaluation() object with the calculated thresholds
     '''
     dead_outlier_model_eval=OutlierModelEvaluation()
-    dead_outlier_model_eval.run_thresholding(curr_set)
-    print(f"thresholds: {dead_outlier_model_eval.best_accuracy_threshold, dead_outlier_model_eval.best_precision_threshold}")
+    
+    window_sizes=[1,2,3,4,5,6,7,8,9,10]
+    dead_outlier_model_eval.evaluate_thresholds_window_sizes(curr_set, window_sizes)
+    print(f"thresholds: {dead_outlier_model_eval.best_accuracy_threshold, dead_outlier_model_eval.best_precision_threshold, dead_outlier_model_eval.window_size}")
+    
     curr_updated_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(curr_set)
     
     return curr_updated_set,dead_outlier_model_eval
@@ -162,12 +165,15 @@ def run_outlier_model():
     dead_train_observation_set,dead_train_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model, dead_train_obs,dead_models_params,DEAD)    
     alive_train_observation_set,alive_train_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model,alive_train_obs,alive_models_params,ALIVE)
     
+    #plot_histogram(dead_train_probability_set, alive_train_probability_set)
+    
     train_probability_set=dead_train_probability_set|alive_train_probability_set   
     train_set=dead_train_observation_set|alive_train_observation_set
     print(len(train_set))
     
     updated_train_probability_set,dead_outlier_model_eval=evaluate_train_model_with_threshold(train_probability_set)
-    alive_train_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_train_probability_set,DEAD,ALIVE)
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_train_probability_set, "Train")
+    #alive_train_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_train_probability_set,DEAD,ALIVE)
    
     #dead_outlier_model_eval.plot_extracted_obj(alive_train_ids,train_set,DEAD,ALIVE)
     
@@ -179,7 +185,8 @@ def run_outlier_model():
     test_set=dead_test_observation_set|alive_test_observation_set
    
     updated_test_probability_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(test_probability_set)
-    alive_test_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_test_probability_set,DEAD,ALIVE)
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_test_probability_set, "Test")
+    #alive_test_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_test_probability_set,DEAD,ALIVE)
     
 def run_bayesian_model():
     #work to do:
@@ -267,7 +274,11 @@ def run_bayesian_model():
     obs_key, obs_value = next(iter(train_bayesian_probability_set.items()))
     
     bayesian_evaluate_model.plot_confusion_matrix(train_bayesian_probability_set, "Train")
-    
+    '''
+    model_evaluator_visualization= OutlierModelEvaluation()
+    alive_train_ids=model_evaluator_visualization.find_the_needed_obj_id(train_bayesian_probability_set,DEAD,DEAD)
+    model_evaluator_visualization.plot_extracted_obj(alive_train_ids,train_set,DEAD,DEAD)
+    '''
     #testing begins:
     dead_with_dead_test_observation_set,dead_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_test_obs,dead_models_params,DEAD)    
     alive_with_dead_test_observation_set,alive_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_test_obs,alive_models_params,ALIVE)
@@ -286,16 +297,113 @@ def run_bayesian_model():
     
     bayesian_evaluate_model.plot_confusion_matrix(test_bayesian_probability_set, "Test")
     '''
-    model_evaluator_visualization= OutlierModelEvaluation()
-    alive_train_ids=model_evaluator_visualization.find_the_needed_obj_id(train_bayesian_probability_set,ALIVE,ALIVE)
-    model_evaluator_visualization.plot_extracted_obj(alive_train_ids,train_set,ALIVE,ALIVE)
+    alive_test_ids=model_evaluator_visualization.find_the_needed_obj_id(test_bayesian_probability_set,ALIVE,ALIVE)
+    model_evaluator_visualization.plot_extracted_obj(alive_test_ids,test_set,ALIVE,ALIVE)
     '''
     
-   
+def run_bayesian_for_threshold():   
+    #work to do:
+    dead_models_params = {}
+    dead_train_obs={}
+    dead_test_obs={}
+    
+    alive_models_params = {}
+    alive_train_obs={}
+    alive_test_obs={}
+    
+    file_loader = ParsingObservations()
+    file_loader.load_files_from_folder(ALIVE,5)
+        
+    for files in file_loader.filelists:
+        print(f" filename is {[files]}:")
+        #print(f"observation size is:{len(dead_observations)}")
+        dead_observations,alive_observations=file_loader.load_observations([files]) 
+        
+        train_dead_observation,test_dead_observation=file_loader.prepare_train_test(dead_observations,train_ratio=0.8)
+        train_alive_observation,test_alive_observation=file_loader.prepare_train_test(alive_observations,train_ratio=0.8)
+        
+        dead_grid_displacement_model=GridDisplacementModel()      
+        train_dead_grid_displacements=dead_grid_displacement_model.calculate_displacements(train_dead_observation)        
+        dead_grid_displacement_model.calculate_parameters(train_dead_grid_displacements)
+       
+        dead_models_params[files] = dead_grid_displacement_model 
+        dead_train_obs[files]=train_dead_observation
+        dead_test_obs[files]=test_dead_observation
+        
+        alive_grid_displacement_model=GridDisplacementModel() 
+        train_alive_grid_displacements=alive_grid_displacement_model.calculate_displacements(train_alive_observation)       
+        alive_grid_displacement_model.calculate_parameters(train_alive_grid_displacements)
+       
+        alive_models_params[files] = alive_grid_displacement_model 
+        alive_train_obs[files]=train_alive_observation
+        alive_test_obs[files]=test_alive_observation
+    
+    combined_dead_with_dead_model=get_combined_model(file_loader,dead_models_params)
+    
+    dead_bayesian_model= GridProbabilityCalculator()    
+    dead_bayesian_model.n=combined_dead_with_dead_model.n
+    dead_bayesian_model.mu =combined_dead_with_dead_model.mu
+    dead_bayesian_model.cov_matrix =combined_dead_with_dead_model.cov_matrix
+    
+    #print(f"dead bayesian model stats: {dead_bayesian_model.n}\n {dead_bayesian_model.mu}\n {dead_bayesian_model.cov_matrix}")
+    
+    #training begins:
+    dead_with_dead_train_observation_set,dead_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
+    alive_with_dead_train_observation_set,alive_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
+    
+    train_with_dead_params_probability_set=dead_with_dead_train_probability_set|alive_with_dead_train_probability_set   
+    
+    combined_alive_with_alive_model=get_combined_model(file_loader,alive_models_params)
+    
+    alive_bayesian_model= GridProbabilityCalculator()    
+    alive_bayesian_model.n=combined_alive_with_alive_model.n
+    alive_bayesian_model.mu =combined_alive_with_alive_model.mu
+    alive_bayesian_model.cov_matrix =combined_alive_with_alive_model.cov_matrix
+    
+    #print(f"alive bayesian model stats: {alive_bayesian_model.n}\n {alive_bayesian_model.mu}\n {alive_bayesian_model.cov_matrix}")
+    dead_with_dead_train_observation_set,dead_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
+    alive_with_dead_train_observation_set,alive_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
+
+    _,dead_with_alive_train_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
+    _,alive_with_alive_train_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
+    
+    train_with_alive_params_probability_set=dead_with_alive_train_probability_set|alive_with_alive_train_probability_set 
+    
+    bayesian_model_threshold= BayesianModel()
+    bayesian_model_threshold.calculate_prior(train_with_dead_params_probability_set,train_with_alive_params_probability_set)
+    curr_likelihood_set=bayesian_model_threshold.sum_log_probabilities(train_with_dead_params_probability_set,train_with_alive_params_probability_set)
+    bayesian_model_threshold.find_optimal_threshold(curr_likelihood_set)
+    train_probability_set_bayesian_threshold=bayesian_model_threshold.predict_with_bayesian_threshold(curr_likelihood_set)
+    bayesian_model_threshold.plot_confusion_matrix(train_probability_set_bayesian_threshold, "Train")
+    
+    train_set=dead_with_dead_train_observation_set|alive_with_dead_train_observation_set
+    alive_ids=bayesian_model_threshold.find_obj_ids(train_probability_set_bayesian_threshold,ALIVE,ALIVE)
+    #bayesian_model_threshold.plot_extracted_obj(alive_ids,train_set,ALIVE,ALIVE)
+    
+    #testing begins:
+    dead_with_dead_test_observation_set,dead_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_test_obs,dead_models_params,DEAD)    
+    alive_with_dead_test_observation_set,alive_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_test_obs,alive_models_params,ALIVE)   
+    test_with_dead_params_probability_set=dead_with_dead_test_probability_set|alive_with_dead_test_probability_set   
+    
+    test_set=dead_with_dead_test_observation_set|alive_with_dead_test_observation_set
+    
+    _,dead_with_alive_test_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model, dead_test_obs,dead_models_params,DEAD)    
+    _,alive_with_alive_test_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model,alive_test_obs,alive_models_params,ALIVE)
+    test_with_alive_params_probability_set=dead_with_alive_test_probability_set| alive_with_alive_test_probability_set 
+    
+    curr_likelihood_test_set=bayesian_model_threshold.sum_log_probabilities(test_with_dead_params_probability_set, test_with_alive_params_probability_set)
+    test_probability_set_bayesian_threshold=bayesian_model_threshold.predict_with_bayesian_threshold(curr_likelihood_test_set)
+    bayesian_model_threshold.plot_confusion_matrix(test_probability_set_bayesian_threshold, "Test")
+    
+    alive_ids=bayesian_model_threshold.find_obj_ids(test_probability_set_bayesian_threshold,ALIVE,ALIVE)
+    bayesian_model_threshold.plot_extracted_obj(alive_ids,test_set,ALIVE,ALIVE)
+
+ 
 if __name__ == "__main__":
    
     run_outlier_model()
     #run_bayesian_model()
+    #run_bayesian_for_threshold()
     
     
     

@@ -42,7 +42,8 @@ class ParsingObservations:
         Parameters:
         -filenames: list of filenames to parse
         Returns:
-        -observations: a dictionary (object id: (frame,x_cordinate,y_coordinate)).
+        -dead_observations: a dictionary (object id: (frame,x_cordinate,y_coordinate)).
+        -alive_observations: a dictionary (object id: (frame,x_cordinate,y_coordinate))
         """
         pattern = re.compile(r'''
         \s*(?P<object_id>\d+),
@@ -72,7 +73,10 @@ class ParsingObservations:
                         observations[obj_id].append((frame, cX, cY))
                         
             print(f"from observation parser filename is: {filename}: observations size: {len(observations)}")
-            dead_observations, alive_observations=self.split_observations_by_displacements(observations, dead_observations, alive_observations)
+            if prefix.startswith("A"):
+                dead_observations, alive_observations=self.split_observations_by_displacements(observations, dead_observations, alive_observations)
+            else:
+                dead_observations=observations
             
         # Ensure observations are sorted by frame
         '''
