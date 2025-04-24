@@ -43,7 +43,7 @@ class OutlierModelEvaluation:
        
         
         for i in range(1, len(roc_thresholds)):
-            if round(tpr[i],2) > round(tpr[i - 1],2) or round(fpr[i],2)<round(fpr[i-1],2):
+            if round(tpr[i],3) > round(tpr[i - 1],3) or round(fpr[i],3)<round(fpr[i-1],3):
                 self.filtered_thresholds.append(roc_thresholds[i])
         
         return 

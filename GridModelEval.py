@@ -20,9 +20,7 @@ class OutlierModelEvaluation:
         self.best_classify = -float('inf')
         self.best_precision = -float('inf')
         self.best_accuracy = -float('inf')
-        #for bayesian evaluation:
-        self.prior_dead=0.0
-        self.prior_alive=0.0
+       
     
     def get_thresholds_from_roc(self,curr_obs):
         '''
