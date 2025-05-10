@@ -73,10 +73,8 @@ class GridDisplacementModel:
             self.normalization(points)
             grid_dis=self.apply_normalization(grid_dis)
         else:
-            print(f"it is false due to test set {calculate_normalization}")
-            
-        
-        
+            print(f"it doesn't contain any observations")
+                    
         return grid_dis
         
     def normalization(self,points):

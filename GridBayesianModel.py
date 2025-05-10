@@ -74,7 +74,7 @@ class BayesianModel:
             }          
         
         return curr_likelihood
-    def plot_confusion_matrix(self, curr_obs, obs_type):
+    def plot_confusion_matrix(self, curr_obs, obs_type,color):
     
         true_label = [curr_obs[obj_id][TRUE_LABELS] for obj_id in curr_obs]
         predicted_label= [curr_obs[obj_id][PREDICTED_LABELS] for obj_id in curr_obs]
@@ -90,7 +90,7 @@ class BayesianModel:
         
          # Display confusion matrix
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Non-moving(0)", "Moving(1)"])
-        disp.plot(cmap="Greens")
+        disp.plot(cmap=color)
         disp.ax_.set_title(f"Confusion Matrix Using {obs_type}")
         disp.ax_.set_xlabel("Predicted Labels")
         disp.ax_.set_ylabel("True Labels")

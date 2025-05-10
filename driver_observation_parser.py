@@ -37,7 +37,7 @@ class ParsingObservations:
             if counter_flag==1:
                 break
         #print(self.filelists)            
-    def load_observations(self,filenames):
+    def load_observations(self,filename):
         """
         Processes the input files and parses them to extract object ID, frame, x, and y coordinates.
         Parameters:
@@ -57,50 +57,29 @@ class ParsingObservations:
         
         
         
-        for filename in filenames:
-            prefix, extension = self.get_file_prefix(filename)
-            print(prefix,extension)
-            observations = collections.defaultdict(list)
-            dead_observations = collections.defaultdict(list)
-            alive_observations = collections.defaultdict(list)
-            
-            with open(filename) as object_xys:
-                for line in object_xys:
-                    m = pattern.match(line)
-                    if m:
-                        obj_id = int(m.group('object_id'))
-                        frame = int(m.group('frame'))
-                        cX = int(m.group('x'))
-                        cY = int(m.group('y'))
-                        obj_id = f"{prefix}_{obj_id}_{extension}"
-                        observations[obj_id].append((frame, cX, cY))
-                        
-            print(f"from observation parser filename is: {filename}: observations size: {len(observations)}")
-            dead_observations, alive_observations=self.split_observations_by_displacements(observations,prefix)
-            print(f"From observation function: total={len(observations)}, dead={len(dead_observations)}, alive={len(alive_observations)}")
+        observations = collections.defaultdict(list)
+
+        with open(filename) as object_xys:
+            prefix,extension=self.get_file_prefix(filename)
+            for line in object_xys:
+                m = pattern.match(line)
+                if m:
+                    obj_id = int(m.group('object_id'))
+                    frame = int(m.group('frame'))
+                    cX = int(m.group('x'))
+                    cY = int(m.group('y'))
+                    obj_id = f"{prefix}_{obj_id}_{extension}"
+                    observations[obj_id].append((frame, cX, cY))
+
         # Ensure observations are sorted by frame
-        '''
+        
         for object_id in observations:
             observations[object_id].sort()
         
         for object_id, items in observations.items():
-            assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
-        '''
+            assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"    
         
-        for object_id in dead_observations:
-            dead_observations[object_id].sort()
-        
-        for object_id, items in dead_observations.items():
-            assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
-        
-        for object_id in alive_observations:
-            dead_observations[object_id].sort()
-        
-        for object_id, items in alive_observations.items():
-            assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
-        
-        
-        return dead_observations,alive_observations
+        return observations
     
     def get_file_prefix(self, filename):
         '''
@@ -121,7 +100,7 @@ class ParsingObservations:
                 return ('Alive',match.group(3))
         return '',''
     
-    def split_observations_by_displacements(self, curr_obs,prefix):
+    def split_observations_by_displacements(self, curr_obs):
        
         all_dx_dy = []
         object_avg = {}
@@ -147,28 +126,34 @@ class ParsingObservations:
             if curr_obj_dxdy:
                 curr_obj_dxdy_np = numpy.array(curr_obj_dxdy)
                 curr_obj_mu = numpy.mean(curr_obj_dxdy_np , axis=0)
-               
+                curr_obj_var = numpy.var(curr_obj_dxdy_np , axis=0)
                 avg_dx,avg_dy=curr_obj_mu[0],curr_obj_mu[1]
-                object_avg[obj_id] = (avg_dx, avg_dy)
-              
+                object_avg[obj_id] = (avg_dx, avg_dy,curr_obj_var[0],curr_obj_var[1])
+                #print(f"{obj_id}: variances are: {curr_obj_var[0]:.2f},{curr_obj_var[1]:.2f}")
             # Global averages of dx and dy across all objects
         all_dx_dy_np=numpy.array(all_dx_dy)
-        all_dx_dy_mu=numpy.mean(all_dx_dy_np, axis=0)                       
+        all_dx_dy_mu=numpy.mean(all_dx_dy_np, axis=0)
+        all_dx_dy_var=numpy.var(all_dx_dy_np, axis=0)
+        all_dx_dy_cov=numpy.cov(all_dx_dy_np.T)
         global_avg_dx,global_avg_dy = all_dx_dy_mu[0],all_dx_dy_mu[1]
         
-        #print(f"Global avg max dx: {global_avg_dx:.2f}, dy: {global_avg_dy:.2f}")
+        print(f"Global avg var: {all_dx_dy_var[0]:.2f}, dy: {all_dx_dy_var[1]:.2f}")
         
             # Second pass: classify based on global averages
-        for obj_id, (avg_dx, avg_dy) in object_avg.items():
+        for obj_id, (avg_dx, avg_dy,var_dx,var_dy) in object_avg.items():
             obs = curr_obs[obj_id]
+            '''
             if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
+                alive_obs[obj_id] = obs
+            '''
+            if len(obs) > 5 and (var_dx > all_dx_dy_var[0] or var_dy > all_dx_dy_var[0]):
                 alive_obs[obj_id] = obs
             elif len(obs) > 5:
                 dead_obs[obj_id] = obs
      
 
         
-        return dead_obs,alive_obs
+        return dead_obs,alive_obs,all_dx_dy_mu,all_dx_dy_cov
     
     def prepare_train_test(self,curr_obs,train_ratio=0.8):
         """

@@ -127,7 +127,7 @@ class BayesianModel:
             
             label = curr_likelihood_without_threshold[obj_id][TRUE_LABELS]
             true_labels.append(0 if label == DEAD else 1)
-        
+        '''
         fpr, tpr, thresholds = roc_curve(true_labels, self.filtered_thresholds, pos_label=1)
         roc_auc = auc(fpr, tpr)
 
@@ -142,7 +142,7 @@ class BayesianModel:
         plt.grid(True)
         plt.tight_layout()
         plt.show()
-            
+        '''    
         cls=''
         
         for i in range(len(self.filtered_thresholds)):

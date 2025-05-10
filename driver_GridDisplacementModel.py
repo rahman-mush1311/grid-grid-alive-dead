@@ -70,13 +70,11 @@ class GridDisplacementModel:
                     print(f"distance of frame is getting invalid values for calculation: {dframe}")
         
         if len(points)>=1:
-            self.normalization(points)
+            #self.normalization(points)
             grid_dis=self.apply_normalization(grid_dis)
         else:
             print(f"it doesn't contain any observations")
-            
-        
-        
+                    
         return grid_dis
         
     def normalization(self,points):

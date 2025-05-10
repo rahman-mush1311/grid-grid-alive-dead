@@ -1,0 +1,164 @@
+from driver_observation_parser import ParsingObservations
+from driver_GridDisplacementModel import GridDisplacementModel
+from GridProbabilityCalculator import GridProbabilityCalculator
+from GridModelEval import OutlierModelEvaluation
+from GridBayesianModel import BayesianModel
+from mean_covariance_plot import get_displacements,mean_covariance_plot,plot_histogram,mean_covariance_overlay_plot
+import numpy
+
+TRUE_LABELS = "true_labels"
+LOG_PDFS='log_pdfs'
+DEAD='d'
+ALIVE='a'
+
+def get_train_test_observation_stats():
+    
+    observation_stats ={}
+    
+    dead_train_obs={}
+    dead_test_obs={}
+    
+    alive_train_obs={}
+    alive_test_obs={}
+    
+    file_loader = ParsingObservations()
+    file_loader.load_files_from_folder(ALIVE,5)
+    
+    for files in file_loader.filelists:
+        #parse a single file
+        observations=file_loader.load_observations(files)
+        #split the single file into train test set
+        train_observations,test_observations=file_loader.prepare_train_test(observations,train_ratio=0.8)
+        #get labels and stats for the train file
+        train_dead_observations,train_alive_observations,train_obs_mu,train_obs_cov=file_loader.split_observations_by_displacements(train_observations)
+        #store the stats for train set and store the dead alive obs
+        observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov}        
+        dead_train_obs[files]=train_dead_observations
+        alive_train_obs[files]=train_alive_observations
+        #split the test into dead and alive store them
+        test_dead_observations,test_alive_observations,_,_=file_loader.split_observations_by_displacements(test_observations)
+        dead_test_obs[files]=test_dead_observations
+        alive_test_obs[files]=test_alive_observations
+        
+    return file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats
+
+def combine_dead_models(file_loader, dead_train_obs, observation_stats):
+    dead_models_params = {}
+    for file in file_loader.filelists:
+    
+        if file not in dead_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            train_dead_observations=dead_train_obs[file]
+            print(f"from outlier model train {file} has {len(train_dead_observations)} dead observations")
+        
+        #####Start Calculating DEAD Model Parameters######
+        train_observations_stats=observation_stats[file]
+        if len(train_observations_stats)!=0:
+        
+            dead_grid_displacement_model=GridDisplacementModel() 
+            dead_grid_displacement_model.total_mu=train_observations_stats['mu']
+            dead_grid_displacement_model.total_cov_matrix=train_observations_stats['cov']
+        
+            curr_grid_displacements_dead=dead_grid_displacement_model.calculate_displacements(train_dead_observations)
+            curr_dead_model_parameters=dead_grid_displacement_model.calculate_parameters(curr_grid_displacements_dead)
+        
+            dead_models_params[file] = dead_grid_displacement_model
+            ########Sanity########
+            '''
+            print(f"from combine dead model function {file} parameters: {dead_models_params[file].total_mu}\n"
+                f"{dead_models_params[file].total_cov_matrix} ")
+            print (f"{file} stats are: {observation_stats[file]['mu']}, {observation_stats[file]['cov']}")
+            '''
+        else:
+            print(f"this {file} doesn't contain any normalization contents")
+    #####Combine the dead models######   
+    combined_model = GridDisplacementModel()
+    
+    # Track the models
+    calculated_models = []
+    for i, files in enumerate(file_loader.filelists):
+        get_file = files
+        if get_file not in dead_models_params:
+            print(f"Warning: {get_file} not found in current_models_params.")
+            continue  # Skip this file if not found
+
+        # Store the last two models
+        calculated_models.append(dead_models_params[get_file])
+
+        # When reaching the last file, combine the last two models
+        if i == len(file_loader.filelists) - 1:  # Last file
+            print(len(calculated_models))
+            combined_model = combined_model.add_models(*calculated_models)  # Unpack list
+        else:
+            print("Not all models yet to combine.")
+    #print(f"from combine model after combining all: {combined_model.mu}\n {combined_model.cov_matrix}")
+    return combined_model
+def compute_probabilities_outlier_model(file_loader, curr_train_obs, observation_stats,outlier_model,label):
+
+    outlier_model_probabilities={}
+    
+    for file in file_loader.filelists:
+        curr_observations = curr_train_obs[file]
+        curr_obs_stats= observation_stats[file]
+        
+        # Step 1: Get normalization statistics
+        dx_norm, dy_norm = curr_obs_stats['mu']
+        sx_norm, sy_norm = numpy.sqrt(numpy.diag(curr_obs_stats['cov']))
+        
+        # Step 2: Copy parameters into calculator
+        calculator = GridProbabilityCalculator()
+        calculator.mu = outlier_model.mu
+        calculator.cov_matrix = outlier_model.cov_matrix
+        calculator.n = outlier_model.n
+        
+        # Step 3: Compute log-probabilities
+        curr_log_pdf_dict, _ = calculator.compute_probabilities(curr_observations, dx_norm, dy_norm, sx_norm, sy_norm)
+        
+        # Step 4: Merge into master dictionary
+        outlier_model_probabilities = calculator.combine_data_with_labels(curr_log_pdf_dict, outlier_model_probabilities, label)
+        print(f"from probability calculator {len(outlier_model_probabilities)}")
+    
+    return outlier_model_probabilities
+
+def evaluate_train_model_with_threshold(curr_set):
+    '''
+    start performing the thresholds using the train set and prediction.
+    Parameters:
+    -curr_set: dictionary with object probabilities{object_id: {LOG_PDFS:list of log of probabilities}{TRUE_LABELS:d/a}}
+    Returns:
+    -curr_updated_set: a dictionary {object_id: {LOG_PDFS:list of log of probabilities}{TRUE_LABELS:d/a}{PREDICTED_LABELS: d/a}}
+    -dead_outlier_model_eval: OutlierModelEvaluation() object with the calculated thresholds
+    '''
+    dead_outlier_model_eval=OutlierModelEvaluation()
+    
+    window_sizes=[1,2,3,4,5,6,7,8,9,10]
+    dead_outlier_model_eval.evaluate_thresholds_window_sizes(curr_set, window_sizes)
+    print(f"thresholds: {dead_outlier_model_eval.best_accuracy_threshold, dead_outlier_model_eval.best_precision_threshold, dead_outlier_model_eval.window_size}")
+    
+    curr_updated_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(curr_set)
+    
+    return curr_updated_set,dead_outlier_model_eval
+if __name__ == "__main__":
+
+    file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats=get_train_test_observation_stats()
+    '''
+    outlier_model=combine_dead_models(file_loader, dead_train_obs, observation_stats)
+    print(f"$$$$$$$$$$$$$$$for dead train$$$$$$$$$$$$$$")
+    train_dead_with_dead_probs=compute_probabilities_outlier_model(file_loader, dead_train_obs, observation_stats,outlier_model,DEAD)
+    print(f"$$$$$$$$$$$$for alive train$$$$$$$$$$$$$$$$$$$$$")
+    train_dead_with_alive_probs=compute_probabilities_outlier_model(file_loader, alive_train_obs, observation_stats,outlier_model,ALIVE)
+    train_probablity_set=train_dead_with_dead_probs|train_dead_with_alive_probs
+    ####Thresholding#####
+    predicted_train_set,dead_outlier_model_eval=evaluate_train_model_with_threshold(train_probablity_set)
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(predicted_train_set, "Train")
+    ##########Testing##################
+    print(f"$$$$$$$$$$$$$$$for dead test$$$$$$$$$$$$$$")
+    test_dead_with_dead_probs=compute_probabilities_outlier_model(file_loader, dead_test_obs, observation_stats,outlier_model,DEAD)
+    print(f"$$$$$$$$$$$$for alive test $$$$$$$$$$$$$$$$$$$$$")
+    test_dead_with_alive_probs=compute_probabilities_outlier_model(file_loader, alive_test_obs, observation_stats,outlier_model,ALIVE)
+    test_probablity_set=test_dead_with_dead_probs|test_dead_with_alive_probs
+    predicted_test_probability_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(test_probablity_set)
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(predicted_test_probability_set, "Test")
+    '''
