@@ -3,6 +3,7 @@ import collections
 import glob
 import os 
 import random
+import numpy 
 
 DEAD='d'
 ALIVE='a'
@@ -25,7 +26,7 @@ class ParsingObservations:
         else:
             subfolder = "alive_files"
             
-        for root, dirs, files in os.walk(subfolder):
+        for root,_, files in os.walk(subfolder):
             for file in files:
                 if file.endswith(".txt"):  # Only add .txt files
                     self.filelists.append(os.path.join(root, file))
@@ -35,8 +36,8 @@ class ParsingObservations:
                     break
             if counter_flag==1:
                 break
-        #print(self.filelists)            
-    def load_observations(self,filenames):
+        
+    def load_observations(self,file_path_filename):
         """
         Processes the input files and parses them to extract object ID, frame, x, and y coordinates.
         Parameters:
@@ -55,38 +56,32 @@ class ParsingObservations:
         ''', re.VERBOSE)
         
         observations = collections.defaultdict(list)
-        dead_observations = collections.defaultdict(list)
-        alive_observations = collections.defaultdict(list)
         
-        for filename in filenames:
-            prefix, extension = self.get_file_prefix(filename)
-            print(prefix,extension)
-            with open(filename) as object_xys:
-                for line in object_xys:
-                    m = pattern.match(line)
-                    if m:
-                        obj_id = int(m.group('object_id'))
-                        frame = int(m.group('frame'))
-                        cX = int(m.group('x'))
-                        cY = int(m.group('y'))
-                        obj_id = f"{prefix}_{obj_id}_{extension}"
-                        observations[obj_id].append((frame, cX, cY))
+        prefix, extension = self.get_file_prefix(file_path_filename)
+        print(f"sanity check: prefix is: {prefix},suffix is: {extension}")
+            
+        with open(file_path_filename) as object_xys:
+            for line in object_xys:
+                m = pattern.match(line)
+                if m:
+                    obj_id = int(m.group('object_id'))
+                    frame = int(m.group('frame'))
+                    cX = int(m.group('x'))
+                    cY = int(m.group('y'))
+                    obj_id = f"{prefix}_{obj_id}_{extension}"
+                    observations[obj_id].append((frame, cX, cY))
                         
-            print(f"from observation parser filename is: {filename}: observations size: {len(observations)}")
-            if prefix.startswith("A"):
-                dead_observations, alive_observations=self.split_observations_by_displacements(observations, dead_observations, alive_observations)
-            else:
-                dead_observations=observations
+        #dead_observations, alive_observations=self.split_observations_by_displacements(observations, dead_observations, alive_observations,extension)
+        #print(f"from observation parser filename is: {file_path_filename}: observations size: {len(observations)}, {len(dead_observations)}, {len(alive_observations)}")
             
         # Ensure observations are sorted by frame
-        '''
+      
         for object_id in observations:
             observations[object_id].sort()
-        
+            
         for object_id, items in observations.items():
             assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
         '''
-        
         for object_id in dead_observations:
             dead_observations[object_id].sort()
         
@@ -94,15 +89,15 @@ class ParsingObservations:
             assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
         
         for object_id in alive_observations:
-            dead_observations[object_id].sort()
+            alive_observations[object_id].sort()
         
         for object_id, items in alive_observations.items():
             assert all(items[i][0] <= items[i + 1][0] for i in range(len(items) - 1)), f"Items for {object_id} are not sorted by frame"
+        '''
         
-        
-        return dead_observations,alive_observations
+        return observations,prefix,extension
     
-    def get_file_prefix(self, filename):
+    def get_file_prefix(self, filepath):
         '''
         extract the filename/dataset name to append it to object_id, since each dataset starts with 1... appending to same dictionaries will cause issues.
         Parameters:
@@ -110,10 +105,12 @@ class ParsingObservations:
         Returns:
         str matching re patterns
         '''
+        filename = os.path.basename(filepath)
+        
         if re.search(r"DeadObjectXYs\.txt", filename):
             return 'D', ''
         else:
-            file_pattern = re.compile(r'''(\d{1,2}-\d{1,2}-\d{2})_(\d+)_ObjectXYs\.txt|AliveObjectXYs(\w+)\.txt''')
+            file_pattern = re.compile(r'^(\d{1,2}-\d{1,2}-\d{2})_(\d+)_ObjectXYs\.txt$|^AliveObjectXYs(\w+)\.txt$')
             match = file_pattern.search(filename)
             if match.group(1)and match.group(2):
                 return (match.group(1), match.group(2)) 
@@ -121,45 +118,114 @@ class ParsingObservations:
                 return ('Alive',match.group(3))
         return '',''
     
-    def split_observations_by_displacements(self, curr_obs, dead_obs, alive_obs):
+    def get_observations_labels_stats_by_displacements(self, curr_obs, extension):
         
+        all_dx_dy = []
+        object_avg = {}
+        dxdy_stats = {}
+        dead_obs = collections.defaultdict(list)
+        alive_obs = collections.defaultdict(list)
+        
+        # First pass: compute max dx/dy per object
         for obj_id, obs in curr_obs.items():
-            displacements=[]
-            max_dy=0
-            max_dx=0
+            curr_obj_dxdy=[]
+                
             for i in range(len(obs) - 1):
                 dframe = obs[i+1][0] - obs[i][0]
-                if dframe>0:               
-                    dx = obs[i+1][1] - obs[i][1]
-                    dy = obs[i+1][2] - obs[i][2]
+                if dframe > 0:
+                    dx = (obs[i+1][1] - obs[i][1]) / dframe
+                    dy = (obs[i+1][2] - obs[i][2]) / dframe
+                    curr_obj_dxdy.append([dx,dy])                        
+                    all_dx_dy.append([dx,dy])
                     
-                    if dy>max_dy:
-                        max_dy=dy 
-                    if dx>max_dx:
-                        max_dx=dx
                 else:
-                    print(f"dframe has invalid {dframe}")
-            if max_dy>9.0 and max_dx>35 and len(obs)>5:
-                if obj_id not in alive_obs:
-                    alive_obs[obj_id]=obs
-            else:
-                if len(obs)>3:
-                    if obj_id not in dead_obs:
-                        dead_obs[obj_id]=obs
-        
-        print(f"from split function: {len(curr_obs)}, {len(dead_obs)}  ,{len(alive_obs)}")
-        '''
-        print(next(iter(curr_obs)), next(iter(dead_obs)), next(iter(alive_obs)))
-        
-        common_keys = set(dead_obs.keys()) & set(alive_obs.keys())
+                    print(f"dframe has invalid value: {dframe}")
 
-        if common_keys:
-            print("They share these key(s):", common_keys)
+            if curr_obj_dxdy:
+                curr_obj_dxdy_np = numpy.array(curr_obj_dxdy)
+                curr_obj_mu = numpy.mean(curr_obj_dxdy_np , axis=0)
+                #curr_obj_cov = numpy.cov(curr_obj_dxdy_np.T)
+                avg_dx,avg_dy=curr_obj_mu[0],curr_obj_mu[1]
+                object_avg[obj_id] = (avg_dx, avg_dy)
+                '''
+                std_dx = numpy.std(curr_obj_dxdy_np[:, 0])
+                std_dy = numpy.std(curr_obj_dxdy_np[:, 1])
+                object_avg[obj_id] = (std_dx, std_dy)
+                '''
+            # Global averages of dx and dy across all objects
+        all_dx_dy_np=numpy.array(all_dx_dy)
+        all_dx_dy_mu=numpy.mean(all_dx_dy_np, axis=0)
+        all_dx_dy_cov=numpy.cov(all_dx_dy_np.T)
+                       
+        global_avg_dx,global_avg_dy = all_dx_dy_mu[0],all_dx_dy_mu[1]
+        global_std_dx=numpy.std(all_dx_dy_np[:, 0])
+        global_std_dy=numpy.std(all_dx_dy_np[:, 1])
+        dxdy_stats={'mu': all_dx_dy_mu, 'cov': all_dx_dy_cov, 'std_dx':global_std_dx, 'std_dy': global_std_dy }
+        #print(f"Global avg max dx: {global_avg_dx:.2f}, dy: {global_avg_dy:.2f}")
+        
+        if extension.endswith("t"):        
+            # Second pass: classify based on global averages
+            for obj_id, (avg_dx, avg_dy) in object_avg.items():
+                obs = curr_obs[obj_id]
+                if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
+                    alive_obs[obj_id] = obs
+                elif len(obs) > 5:
+                    dead_obs[obj_id] = obs
         else:
-            print("No common keys.")
-        '''
-        return dead_obs,alive_obs
+            for obj_id, obs in curr_obs.items():
+                if len(obs)>5: 
+                   dead_obs[obj_id] = obs
+
+        print(f"From split function: extension {extension}, total={len(curr_obs)}, dead={len(dead_obs)}, alive={len(alive_obs)}")
+        return dead_obs, alive_obs,dxdy_stats
     
+    def get_observations_labels_by_displacements_stats(self, curr_obs, curr_obs_stats,extension):
+    
+        object_avg = {}
+        dead_obs = collections.defaultdict(list)
+        alive_obs = collections.defaultdict(list)
+        
+        for obj_id, obs in curr_obs.items():
+            curr_obj_dxdy=[]    
+            for i in range(len(obs) - 1):
+                dframe = obs[i+1][0] - obs[i][0]
+                if dframe > 0:
+                    dx = (obs[i+1][1] - obs[i][1]) / dframe
+                    dy = (obs[i+1][2] - obs[i][2]) / dframe
+                    curr_obj_dxdy.append([dx,dy])                                           
+                else:
+                    print(f"dframe has invalid value: {dframe}")
+
+            if curr_obj_dxdy:
+                curr_obj_dxdy_np = numpy.array(curr_obj_dxdy)
+                
+                curr_obj_mu = numpy.mean(curr_obj_dxdy_np , axis=0)
+                avg_dx,avg_dy=curr_obj_mu[0],curr_obj_mu[1]
+                object_avg[obj_id] = (avg_dx, avg_dy)
+                '''
+                std_dx = numpy.std(curr_obj_dxdy_np[:, 0])
+                std_dy = numpy.std(curr_obj_dxdy_np[:, 1])
+                object_avg[obj_id] = (std_dx, std_dy)
+                '''
+        global_avg_dx,global_avg_dy = curr_obs_stats['mu']
+        global_std_dx=curr_obs_stats['std_dx']
+        global_std_dy=curr_obs_stats['std_dy']
+        #if extension.endswith("t"):        
+            # Second pass: classify based on global averages
+        for obj_id, (avg_dx, avg_dy) in object_avg.items():
+            obs = curr_obs[obj_id]
+            if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
+                alive_obs[obj_id] = obs
+            elif len(obs) > 5:
+                dead_obs[obj_id] = obs
+        '''
+        else:
+            for obj_id, obs in curr_obs.items():
+                if len(obs)>5: 
+                   dead_obs[obj_id] = obs
+        '''           
+        print(f"For test set split functions: extension {extension}, total={len(curr_obs)}, dead={len(dead_obs)}, alive={len(alive_obs)}")
+        return dead_obs, alive_obs
     def prepare_train_test(self,curr_obs,train_ratio=0.8):
         """
         Splits a dictionary into train and test sets based on a specified ratio.

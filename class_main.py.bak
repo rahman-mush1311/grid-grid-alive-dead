@@ -5,6 +5,7 @@ from GridModelEval import OutlierModelEvaluation
 from GridBayesianModel import BayesianModel
 from mean_covariance_plot import get_displacements,mean_covariance_plot,plot_histogram,mean_covariance_overlay_plot
 import numpy
+import time
 
 TRUE_LABELS = "true_labels"
 LOG_PDFS='log_pdfs'
@@ -45,9 +46,9 @@ def get_combined_model(curr_file_loader,curr_model_params):
     
     return combined_model
     
-def calculate_with_dead_models(curr_file_loader,dead_outlier_model,curr_set,curr_obs_params,LABEL):
+def calculate_with_model_parameters(curr_file_loader,combined_model,curr_obs_stats,curr_obs_set,typeOfObs,LABEL):
     '''
-    we start calculating the probability with the dead model
+    we start calculating the probability with the dead/alive model
     Parameters:
     -curr_file_loader:fileloader object where dead/alive filelists are there
     -dead_outlier_model:grid displacement object with the calculated mu, covariances using dead displacements
@@ -59,22 +60,53 @@ def calculate_with_dead_models(curr_file_loader,dead_outlier_model,curr_set,curr
     curr_probability_set={}   
     curr_point_set={}
     
+    if typeOfObs == DEAD:
+        dead_model=GridProbabilityCalculator()
+        
+        dead_model.n=combined_model.n
+        dead_model.mu=combined_model.mu
+        dead_model.cov_matrix=combined_model.cov_matrix 
+        for file in curr_file_loader.filelists:    
+            if file not in curr_obs_stats:
+                print(f"Warning: {file} doesn't contain any normalization values as it is dead file.")
+                continue  # Skip this file if not found
+            else:
+                dx_norm, dy_norm= curr_obs_stats[file]['mu']
+                sx_norm, sy_norm= numpy.sqrt(numpy.diag(curr_obs_stats[file]['cov']))
+                #print(f"from probability calculator {dx_norm},{dy_norm}, {sx_norm}, {sy_norm}")
+                if file in curr_obs_set:
+                    curr_obs=curr_obs_set[file]                
+                    curr_probs,min_dead_probs=dead_model.compute_probabilities(curr_obs,dx_norm, dy_norm, sx_norm, sy_norm)
+                    print(f"from probability calculation {file}: dead {len(curr_probs)}")
+                    curr_probability_set[file]=dead_model.combine_data_with_labels(curr_probs,LABEL)           
+                    curr_point_set[file]=dead_model.combine_dictionary_observation(curr_obs,curr_point_set)
+                else:
+                    print(f"no {file} for curr_obs_set")
+    else:
+        alive_model=GridProbabilityCalculator()
+        
+        alive_model.n=combined_model.n
+        alive_model.mu=combined_model.mu
+        alive_model.cov_matrix=combined_model.cov_matrix
+        
+        for file in curr_file_loader.filelists:    
+            if file not in curr_obs_stats:
+                print(f"Warning: {file} doesn't contain any normalization values as it is dead file.")
+                continue  # Skip this file if not found
+            else:
+                dx_norm, dy_norm= curr_obs_stats[file]['mu']
+                sx_norm, sy_norm= numpy.sqrt(numpy.diag(curr_obs_stats[file]['cov']))
+                #print(f"from probability calculator {dx_norm},{dy_norm}, {sx_norm}, {sy_norm}")
+                if file in curr_obs_set:
+                    curr_obs=curr_obs_set[file]                
+                    curr_probs,min_dead_probs=alive_model.compute_probabilities(curr_obs,dx_norm, dy_norm, sx_norm, sy_norm)
+                    print(f"from probability calculation {file}: alive {len(curr_probs)}")
+                    curr_probability_set[file]=alive_model.combine_data_with_labels(curr_probs,LABEL)           
+                    curr_point_set[file]=alive_model.combine_dictionary_observation(curr_obs,curr_point_set)
+                else:
+                    print(f"no {file} for curr_obs_set")
     
-    for i, files in enumerate(curr_file_loader.filelists):
-        get_file = files
-        curr_obs=curr_set[get_file]
-        if get_file not in curr_obs_params:
-            print(f"Warning: {get_file} not found in curr_obs_params.")
-            continue  # Skip this file if not found
-        else:
-            dx_norm,dy_norm=curr_obs_params[get_file].total_mu[0],curr_obs_params[get_file].total_mu[1]
-            sx_norm, sy_norm = numpy.sqrt(numpy.diag(curr_obs_params[get_file].total_cov_matrix))
-            #print(f"normalization values for {get_file} {LABEL}: {dx_norm, dy_norm, sx_norm, sy_norm}")
-            #print(f"current bayesian model stats: {dead_outlier_model.n}\n {dead_outlier_model.mu}\n {dead_outlier_model.cov_matrix}")
-            curr_probs,min_dead_probs=dead_outlier_model.compute_probabilities(curr_obs,dx_norm, dy_norm, sx_norm, sy_norm)
-            curr_probability_set=dead_outlier_model.combine_data_with_labels(curr_probs,curr_probability_set,LABEL) 
-           
-            curr_point_set=dead_outlier_model.combine_dictionary_observation(curr_obs,curr_point_set)
+       
     
     return curr_point_set,curr_probability_set
 
@@ -98,208 +130,7 @@ def evaluate_train_model_with_threshold(curr_set):
     
     return curr_updated_set,dead_outlier_model_eval
     
-def run_outlier_model():
-    '''
-    1.first create a fileloader object which contains the filelists/dataset list (dead & alive sample list )and we can control how many to take as well.
-    2.from the observation_parser() we get both and alive observation in one list do it for all the filelists one by one
-    3.then we split in train & test set of one file 
-    4.we need to calculate the parameters using GridDisplacementModel() object class and train sets only containing dead examples only.
-    5.we start calculating the probability with the combined dead model
-    6.start performing the thresholds using the train set and prediction.
-    7.use the best selected threshold and predict the test set
-    
-    Some variable description:
-    -dead_models_params: a dictionary {filename(key): dead_grid_model}
-    -dead_train_obs: a nested dictionary of 80% dead observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
-    -dead_train_obs: a nested dictionary of 20% dead observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
-    
-    -alive_models_params: a dictionary {filename(key): alive_grid_model}
-    -alive_train_obs: a nested dictionary of 80% alive observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
-    -alive_train_obs: a nested dictionary of 20% alive observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
-    '''
-    dead_models_params = {}
-    dead_train_obs={}
-    dead_test_obs={}
-    
-    alive_models_params = {}
-    alive_train_obs={}
-    alive_test_obs={}
-    
-    file_loader = ParsingObservations()
-    file_loader.load_files_from_folder(ALIVE,5)
-        
-    for files in file_loader.filelists:
-        print(f" filename is {[files]}:")
-        #print(f"observation size is:{len(dead_observations)}")
-        dead_observations,alive_observations=file_loader.load_observations([files]) 
-        
-        train_dead_observation,test_dead_observation=file_loader.prepare_train_test(dead_observations,train_ratio=0.8)
-        train_alive_observation,test_alive_observation=file_loader.prepare_train_test(alive_observations,train_ratio=0.8)
-        
-        dead_grid_displacement_model=GridDisplacementModel()      
-        train_dead_grid_displacements=dead_grid_displacement_model.calculate_displacements(train_dead_observation)        
-        dead_grid_displacement_model.calculate_parameters(train_dead_grid_displacements)
-       
-        dead_models_params[files] = dead_grid_displacement_model 
-        dead_train_obs[files]=train_dead_observation
-        dead_test_obs[files]=test_dead_observation
-        
-        alive_grid_displacement_model=GridDisplacementModel() 
-        train_alive_grid_displacements=alive_grid_displacement_model.calculate_displacements(train_alive_observation)       
-        alive_grid_displacement_model.calculate_parameters(train_alive_grid_displacements)
-       
-        alive_models_params[files] = alive_grid_displacement_model 
-        alive_train_obs[files]=train_alive_observation
-        alive_test_obs[files]=test_alive_observation
-    
-    combined_dead_with_dead_model=get_combined_model(file_loader,dead_models_params)
-    
-    dead_outlier_model= GridProbabilityCalculator()    
-    dead_outlier_model.n=combined_dead_with_dead_model.n
-    dead_outlier_model.mu =combined_dead_with_dead_model.mu
-    dead_outlier_model.cov_matrix =combined_dead_with_dead_model.cov_matrix
-    
-    #print(f"dead outlier model stats: {dead_outlier_model.n}\n {dead_outlier_model.mu}\n {dead_outlier_model.cov_matrix}")
-    
-    #training begins:
-    dead_train_observation_set,dead_train_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model, dead_train_obs,dead_models_params,DEAD)    
-    alive_train_observation_set,alive_train_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model,alive_train_obs,alive_models_params,ALIVE)
-    
-    #plot_histogram(dead_train_probability_set, alive_train_probability_set)
-    
-    train_probability_set=dead_train_probability_set|alive_train_probability_set   
-    train_set=dead_train_observation_set|alive_train_observation_set
-    print(len(train_set))
-    
-    updated_train_probability_set,dead_outlier_model_eval=evaluate_train_model_with_threshold(train_probability_set)
-    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_train_probability_set, "Train")
-    #alive_train_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_train_probability_set,DEAD,ALIVE)
-   
-    #dead_outlier_model_eval.plot_extracted_obj(alive_train_ids,train_set,DEAD,ALIVE)
-    
-    #testing begins:
-    dead_test_observation_set,dead_test_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model, dead_test_obs,dead_models_params,DEAD)    
-    alive_test_observation_set,alive_test_probability_set=calculate_with_dead_models(file_loader,dead_outlier_model,alive_test_obs,alive_models_params,ALIVE)
-    
-    test_probability_set=dead_test_probability_set|alive_test_probability_set   
-    test_set=dead_test_observation_set|alive_test_observation_set
-   
-    updated_test_probability_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(test_probability_set)
-    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_test_probability_set, "Test")
-    #alive_test_ids=dead_outlier_model_eval.find_the_needed_obj_id(updated_test_probability_set,DEAD,ALIVE)
-    
-def run_bayesian_model():
-    #work to do:
-    dead_models_params = {}
-    dead_train_obs={}
-    dead_test_obs={}
-    
-    alive_models_params = {}
-    alive_train_obs={}
-    alive_test_obs={}
-    
-    file_loader = ParsingObservations()
-    file_loader.load_files_from_folder(ALIVE,5)
-        
-    for files in file_loader.filelists:
-        print(f" filename is {[files]}:")
-        #print(f"observation size is:{len(dead_observations)}")
-        dead_observations,alive_observations=file_loader.load_observations([files]) 
-        
-        train_dead_observation,test_dead_observation=file_loader.prepare_train_test(dead_observations,train_ratio=0.8)
-        train_alive_observation,test_alive_observation=file_loader.prepare_train_test(alive_observations,train_ratio=0.8)
-        
-        dead_grid_displacement_model=GridDisplacementModel()      
-        train_dead_grid_displacements=dead_grid_displacement_model.calculate_displacements(train_dead_observation)        
-        dead_grid_displacement_model.calculate_parameters(train_dead_grid_displacements)
-       
-        dead_models_params[files] = dead_grid_displacement_model 
-        dead_train_obs[files]=train_dead_observation
-        dead_test_obs[files]=test_dead_observation
-        
-        alive_grid_displacement_model=GridDisplacementModel() 
-        train_alive_grid_displacements=alive_grid_displacement_model.calculate_displacements(train_alive_observation)       
-        alive_grid_displacement_model.calculate_parameters(train_alive_grid_displacements)
-       
-        alive_models_params[files] = alive_grid_displacement_model 
-        alive_train_obs[files]=train_alive_observation
-        alive_test_obs[files]=test_alive_observation
-    
-    combined_dead_with_dead_model=get_combined_model(file_loader,dead_models_params)
-    
-    dead_bayesian_model= GridProbabilityCalculator()    
-    dead_bayesian_model.n=combined_dead_with_dead_model.n
-    dead_bayesian_model.mu =combined_dead_with_dead_model.mu
-    dead_bayesian_model.cov_matrix =combined_dead_with_dead_model.cov_matrix
-    
-    #print(f"dead bayesian model stats: {dead_bayesian_model.n}\n {dead_bayesian_model.mu}\n {dead_bayesian_model.cov_matrix}")
-    
-    #training begins:
-    dead_with_dead_train_observation_set,dead_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
-    alive_with_dead_train_observation_set,alive_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
-    
-    train_with_dead_params_probability_set=dead_with_dead_train_probability_set|alive_with_dead_train_probability_set   
-    train_set=dead_with_dead_train_observation_set|alive_with_dead_train_observation_set
-    
-    first_key, first_value = next(iter(train_with_dead_params_probability_set.items()))
-    #print(f" probability set: {first_key}, {first_value}")
-    '''
-    obs_key, obs_value = next(iter(train_set.items()))
-    print(f" obs set: {obs_key}, {obs_value}")
-    '''
-    combined_alive_with_alive_model=get_combined_model(file_loader,alive_models_params)
-    
-    alive_bayesian_model= GridProbabilityCalculator()    
-    alive_bayesian_model.n=combined_alive_with_alive_model.n
-    alive_bayesian_model.mu =combined_alive_with_alive_model.mu
-    alive_bayesian_model.cov_matrix =combined_alive_with_alive_model.cov_matrix
-    
-    #print(f"alive bayesian model stats: {alive_bayesian_model.n}\n {alive_bayesian_model.mu}\n {alive_bayesian_model.cov_matrix}")
-    dead_with_dead_train_observation_set,dead_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
-    alive_with_dead_train_observation_set,alive_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
 
-    _,dead_with_alive_train_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
-    _,alive_with_alive_train_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model,alive_train_obs,alive_models_params,ALIVE)
-    
-    train_with_alive_params_probability_set=dead_with_alive_train_probability_set|alive_with_alive_train_probability_set   
-    prob_key, prob_value = next(iter(train_with_alive_params_probability_set.items()))
-    #print(f" probability set: {prob_key}, {prob_value}")
-    
-    bayesian_evaluate_model = BayesianModel()   
-    
-    bayesian_evaluate_model.calculate_prior(dead_with_alive_train_probability_set, alive_with_alive_train_probability_set)   
-    print(f"{bayesian_evaluate_model.prior_dead}, {bayesian_evaluate_model.prior_alive}")
-    
-    train_bayesian_probability_set=bayesian_evaluate_model.sum_log_probabilities(train_with_dead_params_probability_set, train_with_alive_params_probability_set)
-    obs_key, obs_value = next(iter(train_bayesian_probability_set.items()))
-    
-    bayesian_evaluate_model.plot_confusion_matrix(train_bayesian_probability_set, "Train")
-    '''
-    model_evaluator_visualization= OutlierModelEvaluation()
-    alive_train_ids=model_evaluator_visualization.find_the_needed_obj_id(train_bayesian_probability_set,DEAD,DEAD)
-    model_evaluator_visualization.plot_extracted_obj(alive_train_ids,train_set,DEAD,DEAD)
-    '''
-    #testing begins:
-    dead_with_dead_test_observation_set,dead_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_test_obs,dead_models_params,DEAD)    
-    alive_with_dead_test_observation_set,alive_with_dead_test_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model,alive_test_obs,alive_models_params,ALIVE)
-    
-    test_with_dead_params_probability_set=dead_with_dead_test_probability_set|alive_with_dead_test_probability_set   
-    test_set=dead_with_dead_test_observation_set|alive_with_dead_test_observation_set
-    
-    _,dead_with_alive_test_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model, dead_test_obs,dead_models_params,DEAD)    
-    _,alive_with_alive_test_probability_set=calculate_with_dead_models(file_loader,alive_bayesian_model,alive_test_obs,alive_models_params,ALIVE)
-    
-    test_with_alive_params_probability_set=dead_with_alive_test_probability_set|alive_with_alive_test_probability_set   
-    
-    
-    test_bayesian_probability_set=bayesian_evaluate_model.sum_log_probabilities(test_with_dead_params_probability_set, test_with_alive_params_probability_set)
-    #obs_key, obs_value = next(iter(train_bayesian_probability_set.items()))
-    
-    bayesian_evaluate_model.plot_confusion_matrix(test_bayesian_probability_set, "Test")
-    '''
-    alive_test_ids=model_evaluator_visualization.find_the_needed_obj_id(test_bayesian_probability_set,ALIVE,ALIVE)
-    model_evaluator_visualization.plot_extracted_obj(alive_test_ids,test_set,ALIVE,ALIVE)
-    '''
     
 def run_bayesian_for_threshold():   
     #work to do:
@@ -313,7 +144,7 @@ def run_bayesian_for_threshold():
     
     file_loader = ParsingObservations()
     file_loader.load_files_from_folder(ALIVE,5)
-        
+       
     for files in file_loader.filelists:
         print(f" filename is {[files]}:")
         #print(f"observation size is:{len(dead_observations)}")
@@ -337,6 +168,7 @@ def run_bayesian_for_threshold():
         alive_models_params[files] = alive_grid_displacement_model 
         alive_train_obs[files]=train_alive_observation
         alive_test_obs[files]=test_alive_observation
+        
     
     combined_dead_with_dead_model=get_combined_model(file_loader,dead_models_params)
     
@@ -359,6 +191,7 @@ def run_bayesian_for_threshold():
     alive_bayesian_model.n=combined_alive_with_alive_model.n
     alive_bayesian_model.mu =combined_alive_with_alive_model.mu
     alive_bayesian_model.cov_matrix =combined_alive_with_alive_model.cov_matrix
+    
     
     #print(f"alive bayesian model stats: {alive_bayesian_model.n}\n {alive_bayesian_model.mu}\n {alive_bayesian_model.cov_matrix}")
     dead_with_dead_train_observation_set,dead_with_dead_train_probability_set=calculate_with_dead_models(file_loader,dead_bayesian_model, dead_train_obs,dead_models_params,DEAD)    
@@ -397,12 +230,218 @@ def run_bayesian_for_threshold():
     
     alive_ids=bayesian_model_threshold.find_obj_ids(test_probability_set_bayesian_threshold,ALIVE,ALIVE)
     bayesian_model_threshold.plot_extracted_obj(alive_ids,test_set,ALIVE,ALIVE)
-
- 
-if __name__ == "__main__":
    
-    run_outlier_model()
-    #run_bayesian_model()
+def get_train_test_observation_stats():
+    
+    observation_stats ={}
+    
+    dead_models_params = {}
+    dead_train_obs={}
+    dead_test_obs={}
+    
+    alive_models_params = {}
+    alive_train_obs={}
+    alive_test_obs={}
+    
+    file_loader = ParsingObservations()
+    file_loader.load_files_from_folder(ALIVE,5)
+    
+    for files in file_loader.filelists:
+        #print(f" from main error checking filename is {files}:")
+        observations,prefix,extension=file_loader.load_observations(files)
+        train_observations,test_observations=file_loader.prepare_train_test(observations,train_ratio=0.8)
+        train_dead_observations,train_alive_observations,train_observations_stats=file_loader.get_observations_labels_stats_by_displacements(train_observations, extension)
+        observation_stats[files]= train_observations_stats
+        
+        dead_train_obs[files]=train_dead_observations
+        alive_train_obs[files]=train_alive_observations
+        
+        test_dead_observations,test_alive_observations=file_loader.get_observations_labels_by_displacements_stats(test_observations,train_observations_stats,extension)
+        dead_test_obs[files]=test_dead_observations
+        alive_test_obs[files]=test_alive_observations
+        
+    return file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats
+    
+def run_outlier_model(file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats):
+    '''
+    1.first create a fileloader object which contains the filelists/dataset list (dead & alive sample list )and we can control how many to take as well.
+    2.from the observation_parser() we get both and alive observation in one list do it for all the filelists one by one
+    3.then we split in train & test set of one file 
+    4.we need to calculate the parameters using GridDisplacementModel() object class and train sets only containing dead examples only.
+    5.we start calculating the probability with the combined dead model
+    6.start performing the thresholds using the train set and prediction.
+    7.use the best selected threshold and predict the test set
+    
+    Some variable description:
+    -dead_models_params: a dictionary {filename(key): dead_grid_model}
+    -dead_train_obs: a nested dictionary of 80% dead observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
+    -dead_train_obs: a nested dictionary of 20% dead observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
+    
+    -alive_models_params: a dictionary {filename(key): alive_grid_model}
+    -alive_train_obs: a nested dictionary of 80% alive observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
+    -alive_train_obs: a nested dictionary of 20% alive observations {filename(key): {object_id: [(frame_1,x1,y1)...(frame_n,xn,yn)]}}
+    '''
+    dead_models_params = {}
+  
+    start_model_training_time = time.time()  
+    for file in file_loader.filelists:
+    
+        if file not in dead_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            train_dead_observations=dead_train_obs[file]
+            print(f"from outlier model train {file} has {len(train_dead_observations)} dead observations")
+        
+        if file not in alive_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            train_alive_observations=alive_train_obs[file]
+            print(f"from outlier model train {file} has {len(train_alive_observations)} alive observations")
+        
+        #####Start Calculating Each Model Parameters######
+        train_observations_stats=observation_stats[file]
+        if len(train_observations_stats)!=0:
+        
+            dead_grid_displacement_model=GridDisplacementModel() 
+            dead_grid_displacement_model.total_mu=train_observations_stats['mu']
+            dead_grid_displacement_model.total_cov_matrix=train_observations_stats['cov']
+        
+            curr_grid_displacements_dead=dead_grid_displacement_model.calculate_displacements(train_dead_observations)
+            curr_dead_model_parameters=dead_grid_displacement_model.calculate_parameters(curr_grid_displacements_dead)
+        
+            dead_models_params[file] = dead_grid_displacement_model
+            #print(f"from outlier {file} parameters for dead models: {dead_models_params[file].mu}\n"
+                #f"{dead_models_params[file].cov_matrix} ")
+        else:
+            print(f"this {file} doesn't contain any normalization contents")
+    
+    outlier_model=get_combined_model(file_loader,dead_models_params)
+    #print(f"from outlier for combined dead models: {outlier_model.mu}\n"
+                #f"{outlier_model.cov_matrix} ")
+    
+    ###Start Estimating Parameters for the Train Set
+    dead_train_observation,dead_with_dead_train_probability=calculate_with_model_parameters(file_loader,outlier_model,observation_stats,dead_train_obs,DEAD,DEAD)
+    alive_train_observation,dead_with_alive_train_probability=calculate_with_model_parameters(file_loader,outlier_model,observation_stats,alive_train_obs,DEAD,ALIVE)
+    
+    train_observations_set={}
+    train_probability_set={}
+    
+    label_objects_combine=GridProbabilityCalculator()
+    
+    for file in file_loader.filelists:
+        if file not in dead_with_dead_train_probability:
+            print(f"{file} doesn't contain any DEAD observation and no any probability")
+        if file not in dead_with_alive_train_probability:
+            print(f"{file} doesn't contain any ALIVE observation and no any probability")
+        else:
+            train_probability_set=label_objects_combine.combine_dictionary_observation(dead_with_dead_train_probability[file],train_probability_set)
+            print(f"{file} has {len(dead_with_dead_train_probability[file])} observation probability ")
+            train_probability_set=label_objects_combine.combine_dictionary_observation(dead_with_alive_train_probability[file],train_probability_set)
+    
+    #print(f"dead probability train set for the outlier model {len(train_probability_set)}")
+    
+    ####Start Thresholding #####
+    updated_train_probability_set,dead_outlier_model_eval=evaluate_train_model_with_threshold(train_probability_set)
+    
+    ###Evaluation of Train Set
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_train_probability_set, "Train")
+    
+
+    ####Testing Begins ####
+    test_observations_set={}
+    test_probability_set={}
+    
+    dead_test_observation,dead_with_dead_test_probability=calculate_with_model_parameters(file_loader,outlier_model,observation_stats,dead_test_obs,DEAD,DEAD)
+    alive_test_observation,dead_with_alive_test_probability=calculate_with_model_parameters(file_loader,outlier_model,observation_stats,alive_test_obs,DEAD,ALIVE)
+    
+    for file in file_loader.filelists:
+        if file not in dead_with_dead_test_probability:
+            print(f"Test {file} doesn't contain any DEAD observation and no any probability")
+        if file not in dead_with_alive_train_probability:
+            print(f"Test {file} doesn't contain any ALIVE observation and no any probability")
+        else:
+            test_probability_set=label_objects_combine.combine_dictionary_observation(dead_with_dead_test_probability[file],test_probability_set)           
+            test_probability_set=label_objects_combine.combine_dictionary_observation(dead_with_alive_test_probability[file],test_probability_set)
+    print(f"dead probability test set for the outlier model {len(test_probability_set)}")
+    
+    updated_test_probability_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(test_probability_set)
+    dead_outlier_model_eval.plot_confusion_matrix_outlier_model(updated_test_probability_set, "Test")
+
+def run_bayesian_model(file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats):
+
+    dead_models_params = {}
+    alive_models_params = {}
+    
+    start_model_training_time = time.time()  
+    for file in file_loader.filelists:
+    
+        if file not in dead_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            train_dead_observations=dead_train_obs[file]
+            print(f"from bayesian model train {file} has {len(train_dead_observations)} dead observations")
+        
+        if file not in alive_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            train_alive_observations=alive_train_obs[file]
+            print(f"from bayesian model train {file} has {len(train_alive_observations)} alive observations")
+        
+        #####Start Calculating DEAD Model Parameters######
+        train_observations_stats=observation_stats[file]
+        if len(train_observations_stats)!=0:
+        
+            dead_grid_displacement_model=GridDisplacementModel() 
+            dead_grid_displacement_model.total_mu=train_observations_stats['mu']
+            dead_grid_displacement_model.total_cov_matrix=train_observations_stats['cov']
+        
+            curr_grid_displacements_dead=dead_grid_displacement_model.calculate_displacements(train_dead_observations)
+            curr_dead_model_parameters=dead_grid_displacement_model.calculate_parameters(curr_grid_displacements_dead)
+        
+            dead_models_params[file] = dead_grid_displacement_model
+            #print(f"from outlier {file} parameters for dead models: {dead_models_params[file].mu}\n"
+                #f"{dead_models_params[file].cov_matrix} ")
+        else:
+            print(f"this {file} doesn't contain any normalization contents for dead")
+            
+        ####ALIVE PARAMETERS#####    
+        if len(train_observations_stats)!=0:
+        
+            alive_grid_displacement_model=GridDisplacementModel() 
+            alive_grid_displacement_model.total_mu=train_observations_stats['mu']
+            alive_grid_displacement_model.total_cov_matrix=train_observations_stats['cov']
+        
+            curr_grid_displacements_alive=alive_grid_displacement_model.calculate_displacements(train_alive_observations)
+            curr_alive_model_parameters=alive_grid_displacement_model.calculate_parameters(curr_grid_displacements_alive)
+        
+            alive_models_params[file] = dead_grid_displacement_model
+            #print(f"from bayesian {file} parameters for alive models: {alive_models_params[file].mu}\n"
+                #f"{alive_models_params[file].cov_matrix} ")
+        else:
+            print(f"this {file} doesn't contain any normalization contents for alive")
+    
+    dead_model_bayesian=get_combined_model(file_loader,dead_models_params)    
+    alive_model_bayesian=get_combined_model(file_loader,alive_models_params)
+    
+    ###Start Estimating DEAD Parameters for the Train Set
+    dead_train_observation,dead_with_dead_train_probability=calculate_with_model_parameters(file_loader,dead_model_bayesian,observation_stats,dead_train_obs,DEAD,DEAD)
+    alive_train_observation,dead_with_alive_train_probability=calculate_with_model_parameters(file_loader,dead_model_bayesian,observation_stats,alive_train_obs,DEAD,ALIVE)
+    
+    ###Start Estimating ALIVE Parameters for the Train Set
+    _,alive_with_dead_train_probability=calculate_with_model_parameters(file_loader,alive_model_bayesian,observation_stats,dead_train_obs,ALIVE,DEAD)
+    _,alive_with_alive_train_probability=calculate_with_model_parameters(file_loader,alive_model_bayesian,observation_stats,alive_train_obs,ALIVE,ALIVE)
+    
+   
+    
+if __name__ == "__main__":
+    
+    file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats=get_train_test_observation_stats()
+    #run_outlier_model(file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats)
+    run_bayesian_model(file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats)
     #run_bayesian_for_threshold()
     
     

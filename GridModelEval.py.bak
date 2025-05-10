@@ -11,18 +11,19 @@ DEAD='d'
 ALIVE='a'
 
 class OutlierModelEvaluation:
-    def __init__(self, window=2):
+    def __init__(self, window=3):
     
         self.window_size = window
         self.filtered_thresholds = []
+        
         self.best_accuracy_threshold = None
         self.best_precision_threshold = None
+        self.optimal_threshold = None
+        
         self.best_classify = -float('inf')
         self.best_precision = -float('inf')
         self.best_accuracy = -float('inf')
-        #for bayesian evaluation:
-        self.prior_dead=0.0
-        self.prior_alive=0.0
+       
     
     def get_thresholds_from_roc(self,curr_obs):
         '''
@@ -30,22 +31,29 @@ class OutlierModelEvaluation:
         '''
         true_labels=[]
         log_pdf_values=[]
-        
+        '''
         for obj_data in curr_obs.values():
             log_pdf_values.extend(obj_data[LOG_PDFS])
-            true_labels.extend([0 if obj_data[TRUE_LABELS] == ALIVE else 1] * len(obj_data[LOG_PDFS]))
-    
+            true_labels.extend([1 if obj_data[TRUE_LABELS] == ALIVE else 0] * len(obj_data[LOG_PDFS]))
+        '''
+        seen = set()
+
+        for obj_data in curr_obs.values():
+            label = 1 if obj_data[TRUE_LABELS] == ALIVE else 0
+            for log_pdf in obj_data[LOG_PDFS]:
+                if log_pdf not in seen:
+                    seen.add(log_pdf)
+                    log_pdf_values.append(log_pdf)
+                    true_labels.append(label)
+                    
         true_labels=np.array(true_labels)
         log_pdf_values=np.array(log_pdf_values)
         print(true_labels.shape,log_pdf_values.shape)
         fpr, tpr, roc_thresholds = roc_curve(true_labels, log_pdf_values)
-        #print(min(roc_thresholds),max(roc_thresholds))
-       
-        
+         
         for i in range(1, len(roc_thresholds)):
             if round(tpr[i],3) > round(tpr[i - 1],3) or round(fpr[i],3)<round(fpr[i-1],3):
                 self.filtered_thresholds.append(roc_thresholds[i])
-        
         return 
     
     def predict_probabilities_dictionary_update(self,curr_obs):
@@ -60,8 +68,9 @@ class OutlierModelEvaluation:
             cls = DEAD
             for i in range(len(curr_obs[obj_id][LOG_PDFS]) - self.window_size + 1):
                 w = curr_obs[obj_id][LOG_PDFS][i:i+self.window_size]
-                if all([p <= self.best_accuracy_threshold for p in w]):
+                if all([p <= self.optimal_threshold for p in w]):
                     cls = ALIVE
+                    break
 
         # Update the dictionary with predicted and true labels
             curr_obs[obj_id] = {
@@ -79,13 +88,13 @@ class OutlierModelEvaluation:
         # Create the confusion matrix
         cm = confusion_matrix(true_labels, predicted_labels, labels=[DEAD, ALIVE])
         accuracy = accuracy_score(true_labels, predicted_labels)
-        f1 = f1_score(true_labels, predicted_labels, pos_label='d', average='binary')
-        recall = recall_score(true_labels, predicted_labels, pos_label='d', average='binary')
-        precision = precision_score(true_labels, predicted_labels, pos_label='d', average='binary',zero_division=0)
+        f1 = f1_score(true_labels, predicted_labels, pos_label='a', average='binary')
+        recall = recall_score(true_labels, predicted_labels, pos_label='a', average='binary')
+        precision = precision_score(true_labels, predicted_labels, pos_label='a', average='binary',zero_division=0)
         print(f"{accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}")
         
          # Display confusion matrix
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Dead (1)", "Alive (0)"])
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Non-Moving(0)", "Moving (1)"])
         disp.plot(cmap="Blues")
         disp.ax_.set_title(f"Confusion Matrix Using {typeofset}")
         disp.ax_.set_xlabel("Predicted Labels")
@@ -137,8 +146,9 @@ class OutlierModelEvaluation:
                         w = log_values[i:i + window]
                         if all(p <= threshold for p in w):
                             cls = ALIVE
-                    predictions.append(0 if cls == ALIVE else 1)
-                    true_labels.append(0 if values[TRUE_LABELS] == ALIVE else 1)
+                            break
+                    predictions.append(1 if cls == ALIVE else 0)
+                    true_labels.append(1 if values[TRUE_LABELS] == ALIVE else 0)
                            
                 
                 cm = confusion_matrix(true_labels, predictions, labels=[0, 1])
@@ -148,17 +158,21 @@ class OutlierModelEvaluation:
                 precision = precision_score(true_labels, predictions,zero_division=0)
                 classify = cm[0, 0] + cm[1, 1]  # TP + TN
                 #print(f"for threshold: {threshold} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}")
-                if accuracy > self.best_accuracy:
+                if classify > self.best_classify:
                     self.best_accuracy = accuracy
                     self.best_accuracy_threshold = threshold
-                    self.window_size=window
+                    self.best_classify=classify                   
                     
                 if precision > self.best_precision:
                     self.best_precision = precision
                     self.best_precision_threshold = threshold
+                
+                if classify >= self.best_classify and precision >= self.best_precision:
+                    self.window_size=window
+                    self.optimal_threshold= threshold
                     
-            print(f"for window: {window} window_reset {self.window_size} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}\n"
-                   f"Accuracy Threshold: {self.best_accuracy_threshold}")      
+            print(f"for window: {window} window_reset {self.window_size} classify {self.best_classify} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}\n"
+                   f"Optimal Threshold: {self.optimal_threshold}")      
            
     def find_the_needed_obj_id(self,curr_obs,label_true,label_predicted):
         '''

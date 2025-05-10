@@ -9,7 +9,7 @@ DEAD='d'
 ALIVE='a'
 
 class GridProbabilityCalculator:
-    def __init__(self, grid_rows=5, grid_cols=5, max_x=4128, max_y=2196):
+    def __init__(self, grid_rows=3, grid_cols=3, max_x=4128, max_y=2196):
         
         # self.n represents the number of observations for each cell
         self.n = [[ 0 for _ in range(grid_cols)] for _ in range(grid_rows)]
@@ -62,9 +62,11 @@ class GridProbabilityCalculator:
                 
                 else:
                     print(f"not valid frame distance {dframe}")
-            assert len(obj_probabilities) == len(obs)-1 and len(obs)>0, f"Mismatch: {obj_id} has {len(obj_probabilities)} probabilities but {len(obs)-1} observations!"
             if len(obs)-1<=0:
                 empty_obs+=1
+            else:
+                assert len(obj_probabilities) == len(obs)-1 and len(obs)>0, f"Mismatch: {obj_id} has {len(obj_probabilities)} probabilities but {len(obs)-1} observations!"
+            
             
             log_obj_probabilities=self.log_probability(obj_probabilities)
             
@@ -115,7 +117,7 @@ class GridProbabilityCalculator:
         else:
             print(f"current cell [{grid_row}][{grid_col}] mu is: {cell_mu} sigma is: {cell_cov_matrix}  probabilities: empty for {dx,dy}")
             return 
-            
+   
     def combine_dictionary_observation(self, curr_obs, total_obs):
         '''
         this functions combines multiple dictionary observations.
@@ -155,7 +157,6 @@ class GridProbabilityCalculator:
                 obs_dict_with_labels[obj_id][TRUE_LABELS]=label
                 
         return obs_dict_with_labels
-        
     def find_grid_cell(self, x, y):
         grid_row = y * self.num_rows() // self.max_y
         grid_col = x * self.num_cols() // self.max_x

@@ -23,7 +23,9 @@ class BayesianModel:
         self.best_accuracy_threshold = None
         self.best_precision_threshold = None
         self.best_recall_threshold= None
+        self.optimal_threshold = None
         
+        self.best_classify = -float('inf')       
         self.best_accuracy = -float('inf')
         self.best_precision = -float('inf')
         self.best_recall = -float('inf')
@@ -81,13 +83,13 @@ class BayesianModel:
         # Create the confusion matrix
         cm = confusion_matrix(true_label, predicted_label, labels=[DEAD, ALIVE])
         accuracy = accuracy_score(true_label, predicted_label)
-        f1 = f1_score(true_label, predicted_label, pos_label='d', average='binary')
-        recall = recall_score(true_label, predicted_label, pos_label='d', average='binary')
-        precision = precision_score(true_label, predicted_label, pos_label='d', average='binary')
+        f1 = f1_score(true_label, predicted_label, pos_label='a', average='binary')
+        recall = recall_score(true_label, predicted_label, pos_label='a', average='binary')
+        precision = precision_score(true_label, predicted_label, pos_label='a', average='binary')
         print(f"{accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}")
         
          # Display confusion matrix
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Dead (1)", "Alive (0)"])
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Non-moving(0)", "Moving(1)"])
         disp.plot(cmap="Greens")
         disp.ax_.set_title(f"Confusion Matrix Using {obs_type}")
         disp.ax_.set_xlabel("Predicted Labels")
@@ -124,7 +126,7 @@ class BayesianModel:
             self.filtered_thresholds.append(threshold)
             
             label = curr_likelihood_without_threshold[obj_id][TRUE_LABELS]
-            true_labels.append(1 if label == DEAD else 0)
+            true_labels.append(0 if label == DEAD else 1)
         
         fpr, tpr, thresholds = roc_curve(true_labels, self.filtered_thresholds, pos_label=1)
         roc_auc = auc(fpr, tpr)
@@ -161,9 +163,10 @@ class BayesianModel:
             # Create the confusion matrix
             cm = confusion_matrix(true_label, predicted_label, labels=[DEAD, ALIVE])
             accuracy = accuracy_score(true_label, predicted_label)
-            f1 = f1_score(true_label, predicted_label, pos_label='d', average='binary')
-            recall = recall_score(true_label, predicted_label, pos_label='d', average='binary')
-            precision = precision_score(true_label, predicted_label, pos_label='d', average='binary')
+            f1 = f1_score(true_label, predicted_label, pos_label='a', average='binary')
+            recall = recall_score(true_label, predicted_label, pos_label='a', average='binary')
+            precision = precision_score(true_label, predicted_label, pos_label='a', average='binary')
+            classify = cm[0, 0] + cm[1, 1]
             #print(f"for theshold: {delta} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}")
             
             if accuracy > self.best_accuracy:
@@ -175,10 +178,15 @@ class BayesianModel:
             if recall > self.best_recall:
                 self.best_recall = recall
                 self.best_recall_threshold = delta
+            
+            if classify>self.best_classify and precision>=self.best_precision:
+                self.best_classify=classify
+                self.optimal_threshold=delta
                 
         print(f"Accuracy Threshold: {self.best_accuracy_threshold}, Accuracy: {self.best_accuracy},\n" 
                 f"Best Precision: {self.best_precision}, Precision Threshold: {self.best_precision_threshold},\n"
-                f"Best Recall: {self.best_recall}, Recall Threshold: {self.best_recall_threshold}")
+                f"Best Recall: {self.best_recall}, Recall Threshold: {self.best_recall_threshold}\n"
+                f"Best Classify: {self.best_classify}, Optimal Threshold: {self.optimal_threshold}\n")
         
         return 
         
@@ -187,7 +195,7 @@ class BayesianModel:
         for obj_id in curr_likelihood:
             dead_logs_sum = curr_likelihood[obj_id][DEAD_PDFS]
             alive_logs_sum = curr_likelihood[obj_id][ALIVE_PDFS]
-            if dead_logs_sum>alive_logs_sum+self.best_precision_threshold:
+            if dead_logs_sum>alive_logs_sum+self.optimal_threshold:
                 cls=DEAD
                 curr_likelihood[obj_id][PREDICTED_LABELS]=cls
             else:

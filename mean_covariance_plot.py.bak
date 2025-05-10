@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import multivariate_normal
+from scipy.stats import multivariate_normal, shapiro
 from matplotlib.patches import Ellipse
 import re
 import collections
@@ -9,7 +9,7 @@ import os
 import random
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
-
+import seaborn as sns
 import os
 import shutil
 
@@ -39,11 +39,13 @@ def get_displacements(filelists):
         \s*Frame\s*=\s*(?P<frame>\d+)
         ''', re.VERBOSE)
  
-    observations = collections.defaultdict(list)
+    #observations = collections.defaultdict(list)
     
     for filename in filelists:
-        #observations = collections.defaultdict(list)
-        #print(filename)
+        observations = collections.defaultdict(list)
+        dead_observations = collections.defaultdict(list)
+        alive_observations = collections.defaultdict(list)
+        print(filename)
         prefix, extension = get_file_prefix(filename)
         
         frameCount=0
@@ -66,7 +68,8 @@ def get_displacements(filelists):
             
         dataset_name=prefix+"_"+extension
        
-    plot_mean_covariance(observations,"all")
+        #plot_mean_covariance(observations,dataset_name)
+        dead_observations,alive_observations=split_observations_by_displacements(observations)
     
     
 def plot_stat_bars(curr_list):
@@ -164,65 +167,26 @@ def plot_mean_covariance(curr_obs,dataset_name):
     dx_points=[]
     dy_points=[]
     distances=[]
+    points=[]
     
     
     for obj_id, obs in curr_obs.items():
-            
-            for i in range(len(obs) - 1):
-                if len(obs)>3:
-                    dframe = obs[i+1][0] - obs[i][0]
-                    #to do: dframe<=0 continue logging error
-                    if dframe>0:
+        #print(obj_id)
+        for i in range(len(obs) - 1):
+            if len(obs)>3:
+                dframe = obs[i+1][0] - obs[i][0]                   
+                if dframe>0:
                         
-                        dx = obs[i+1][1] - obs[i][1]
-                        dy = obs[i+1][2] - obs[i][2]
-                        #points.append((dx/dframe,dy/dframe))
-                        dx_points.append(dx)
-                        dy_points.append(dy)
-                        distances.append(np.sqrt((dx)**2 + (dy)**2))
-                    
-                    else:
-                        print(f"dframe has invalid {dframe}")
-            
-            #displacements_dict[obj_id]=displacements
-            #print(f"for {obj_id} observation size is {len(obs)} and displacements size: {len(displacements_dict[obj_id])}")
-            
-    threshold = np.percentile(distances, 99)
+                    dx = obs[i+1][1] - obs[i][1]
+                    dy = obs[i+1][2] - obs[i][2]
+                    points.append((dx/dframe,dy/dframe))
+                    if obj_id=='AliveObjects_143_1at':
+                        #print("found it")
+                        dx_points.append(obs[i][1])
+                        dy_points.append(obs[i][2])                    
+                else:
+                    print(f"dframe has invalid {dframe}") 
     
-    suspicious_objects = set()
-    for obj_id, obs in curr_obs.items():
-        if len(obs) < 3:
-            continue
-
-        for i in range(1, len(obs)):
-            frame1, x1, y1 = obs[i - 1]
-            frame2, x2, y2 = obs[i]
-
-            dx = x2 - x1
-            dy = y2 - y1
-            distance = np.sqrt(dx**2 + dy**2)
-
-            if distance > threshold:
-                suspicious_objects.add(obj_id)
-                break  # No need to keep checking this object
-
-    print(f"Suspicious object IDs (based on distance > {threshold}):")
-    print(len(suspicious_objects))
-    '''
-    for obj_id, dis in displacements_dict.items():
-        max_dx=0
-        max_dy=0
-        for i in range(len(dis)):
-            dx=dis[i][0]
-            dy=dis[i][1]
-            if dx>max_dx:
-                max_dx=dx
-            if dy>max_dy:
-                max_dy=dy
-        print(f"for {obj_id} x-axis maximum is {max_dx} y-axis maximum {max_dy}")
-    '''
-    
-    '''
     points=np.array(points)
     # Compute the mean vector
     mean_vector = np.mean(points, axis=0)
@@ -234,76 +198,64 @@ def plot_mean_covariance(curr_obs,dataset_name):
     print("Mean Vector:\n", mean_vector)
     print("\nCovariance Matrix:\n", cov_matrix)
     
-    scaler = StandardScaler()
-    Z = scaler.fit_transform(points)  # Apply whitening
-
-    # Step 2: Compute mean and covariance of transformed data
-    Z_mean = np.mean(Z, axis=0)
-    Z_cov = np.cov(Z, rowvar=False)
-
-    # Display results
-    print("Mean After Whitening:\n", Z_mean)
-    print("\nCovariance Matrix After Whitening:\n", Z_cov)
-
-    # Extract X and Y points for plotting
-    X_points = points[:, 0]
-    Y_points = points[:, 1]
-    
-    # Plot scatter points
-    #fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-    fig, ax = plt.subplots(figsize=(8, 6))
-    #ax.scatter(X_points, Y_points, color="blue", label="Data Points", edgecolors="black", s=100)
-    
-    # Plot mean as a red star
-    ax.scatter(mean_vector[0], mean_vector[1], color="red", marker="*", s=20, label="Mean (μ)")
-
-    # Compute eigenvalues and eigenvectors for covariance matrix
-    eigvals, eigvecs = np.linalg.eigh(cov_matrix)
-
-    # Get the angle of the largest eigenvector (direction of most variance)
-    angle = np.degrees(np.arctan2(*eigvecs[:, 1]))
-
-    # Width and height of ellipse scaled by eigenvalues
-    width, height = np.sqrt(eigvals)  
-
-    # Create and add covariance ellipse
-    ellipse = Ellipse(xy=mean_vector, width=width, height=height, angle=angle,
-                  edgecolor='purple', facecolor='none', linestyle='--', linewidth=2, label="Covariance Ellipse")
-    ax.add_patch(ellipse)
-
-    # Labels and Formatting
-    ax.set_title(f"{dataset_name} Plot with Mean and Covariance Ellipse Without Normalization")
-    ax.set_xlabel("dx")
-    ax.set_ylabel("dy")
-    
-    
-    
-    # Plot mean as a red star
-    axes[1].scatter(Z_mean[0], Z_mean[1], color="red", marker="*", s=20, label="Mean (μ)")
-
-    # Compute eigenvalues and eigenvectors for covariance matrix
-    eigvals_norm, eigvecs_norm = np.linalg.eigh(Z_cov)
-
-    # Get the angle of the largest eigenvector (direction of most variance)
-    angle_norm = np.degrees(np.arctan2(*eigvecs_norm[:, 1]))
-
-    # Width and height of ellipse scaled by eigenvalues
-    width_norm, height_norm = np.sqrt(eigvals_norm)  
-
-    # Create and add covariance ellipse
-    ellipse_norm = Ellipse(xy=Z_mean, width=width_norm, height=height_norm, angle=angle_norm,
-                  edgecolor='purple', facecolor='none', linestyle='--', linewidth=2, label="Covariance Ellipse")
-    axes[1].add_patch(ellipse_norm)
-
-    # Labels and Formatting
-    axes[1].set_title(f"{dataset_name} Plot with Mean and Covariance Ellipse With Normalization")
-    axes[1].set_xlabel("X-axis")
-    axes[1].set_ylabel("Y-axis")
-    
-    # Show plot
-    plt.tight_layout()
+    sns.jointplot(x=points[:, 0], y=points[:, 1], kind='kde')
+    plt.xlabel("dx")
+    plt.ylabel("dy")
+    plt.title(f"Displacement Distribution for {dataset_name}")
     plt.show()
-    '''
+   
+  
+    
+def split_observations_by_displacements(curr_obs):
+       
+    all_dx = []
+    all_dy = []
+    object_avg = {}
+    
+    dead_obs = collections.defaultdict(list)
+    alive_obs = collections.defaultdict(list)
+    # First pass: compute max dx/dy per object
+    for obj_id, obs in curr_obs.items():
+        dx_list = []
+        dy_list = []
+        for i in range(len(obs) - 1):
+            dframe = obs[i+1][0] - obs[i][0]
+            if dframe > 0:
+                dx = (obs[i+1][1] - obs[i][1]) / dframe
+                dy = (obs[i+1][2] - obs[i][2]) / dframe
+                dx_list.append(dx)
+                dy_list.append(dy)
+                all_dx.append(dx)
+                all_dy.append(dy)
+                    
+            else:
+                print(f"dframe has invalid value: {dframe}")
+
+        if dx_list and dy_list:
+            avg_dx = sum(dx_list) / len(dx_list)
+            avg_dy = sum(dy_list) / len(dy_list)
+            object_avg[obj_id] = (avg_dx, avg_dy)
+
+    # Global averages of dx and dy across all objects
+    global_avg_dx = sum(all_dx) / len(all_dx)
+    global_avg_dy = sum(all_dy) / len(all_dy)
+
+    #print(f"Global avg max dx: {global_avg_dx:.2f}, dy: {global_avg_dy:.2f}")
+
+    # Second pass: classify based on max dx/dy vs global averages
+    for obj_id, (avg_dx, avg_dy) in object_avg.items():
+        obs = curr_obs[obj_id]
+        #print(f"for {obj_id}: {max_dx}, {max_dy}")
+        if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
+            alive_obs[obj_id] = len(obs)
+        elif len(obs) > 5:
+            dead_obs[obj_id] = len(obs)
+
+    print(f"From split function: total={len(curr_obs)}, dead={len(dead_obs)}, alive={len(alive_obs)}")
+    dead_total_sum = sum(dead_obs.values()) 
+    alive_total_sum=sum(alive_obs.values())
+    print(f"dead_ds {dead_total_sum}, alive_ds {alive_total_sum}")
+    return dead_obs, alive_obs   
     
 def mean_covariance_plot(grid_mu,grid_cov):
     # Step 1: Compute global range for all plots
@@ -368,17 +320,17 @@ def mean_covariance_plot(grid_mu,grid_cov):
             ax.set_ylabel("Y")
             ax.legend()
             ax.grid(True)
-            ax.set_title(f"Visualization of Mean and Covariance Matrix as Ellipses Alive Grid Stats{[i]}{[j]}")
+            ax.set_title(f"Visualization of Mean and Covariance Matrix{[i]}{[j]}")
             #plt.axis('equal')
-            plt.savefig(f"alive_model_grid_stats[{i}][{j}]")
-            plt.show()
+            plt.savefig(f"dead_model_grid_stats[{i}][{j}]")
+            #plt.show()
             
 def make_collage():
 
 
     # Folder containing your saved images
-    image_folder = r"D:\RA work Fall2024\grid-grid-alive-dead\grid_stats_overlayed"
-    output_file = r"alive_dead_grid_stat_collage.png"
+    image_folder = r"D:\RA work Fall2024\grid-grid-alive-dead\results\outlier_grid_pictures"
+    output_file = r"outlier_rid_stat_collage.pdf"
 
     # Get list of image files
     image_files = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith(".png")]
@@ -404,7 +356,7 @@ def make_collage():
         collage.paste(img, (x_offset, y_offset))
 
     # Save the final collage
-    collage.save(output_file)
+    collage.save(output_file, "PDF", resolution=300.0)
     print(f"Collage saved as {output_file}")
     
 def mean_covariance_overlay_plot(grid_mu_alive, grid_cov_alive, grid_mu_dead, grid_cov_dead):
@@ -474,6 +426,42 @@ def mean_covariance_overlay_plot(grid_mu_alive, grid_cov_alive, grid_mu_dead, gr
             plt.savefig(f"alive_dead_overlay_grid_stats[{i}][{j}].png")
             #plt.show()
             
+def plot_accuracy_window():
+    '''
+    window_sizes = list(range(1, 11))  # Window sizes from 1 to 10
+    #accuracy_values = [0.772, 0.770, 0.777, 0.774, 0.773, 0.773, 0.773, 0.773, 0.773, 0.775] 
+    #accuracy_values = [-19.088, -10.104, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088] 
+    accuracy_values = [0.392, 0.425, 0.562, 0.455, 0.375, 0.333, 0.250, 0.000, 0.000, 0.000] 
+    '''
+    grid_sizes = [3, 5]
+    parameter_counts = [grid**2 * 5 for grid in grid_sizes]
+    sample_counts = [271, 1300]
+    
+    outlier_train_accuracy = [0.661, 0.726]   
+    bayesian_train_accuracy = [0.638, 0.767]
+    outlier_test_accuracy = [0.638, 0.717]   
+    bayesian_test_accuracy = [0.582, 0.737]
+    
+    x_labels = [f"{p} ({s})" for p, s in zip(parameter_counts, sample_counts)]
+    
+    # Plotting
+    plt.figure(figsize=(8, 5))
+    plt.plot(x_labels, outlier_train_accuracy, label='Outlier Train Accuracy', linestyle='-', color='blue')
+    plt.plot(x_labels, bayesian_train_accuracy, label='Bayesian Train Accuracy', linestyle='-', color='red')
+    plt.plot(x_labels, outlier_test_accuracy, label='Outlier Test Accuracy', linestyle='-', color='green')
+    plt.plot(x_labels, bayesian_test_accuracy, label='Bayesian Test Accuracy', linestyle='-', color='orange')
+   
+
+    plt.xlabel('Number of Parameters (Number of Samples)')
+    plt.ylabel('Accuracy')
+    plt.title('Outlier vs Bayesian Model Accuracy Across Grid Sizes')
+    plt.grid(True)
+    plt.ylim(0.50, 1.0)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+          
 if __name__ == "__main__":
     
     #source_folder = r'''D:\RA work Fall2024\january data'''
@@ -495,18 +483,26 @@ if __name__ == "__main__":
                 else:
                     print(f"Skipped (already exists): {dst_path}")
     '''
-    file_list = []#'AliveObjectXYs1at.txt'
-    
+    file_list = []
+    i=0
+    flag=0
     subfolder = "alive_files"  
     for root, dirs, files in os.walk(subfolder):
         for file in files:
             if file.endswith(".txt"):  # Only add .txt files
                 file_list.append(os.path.join(root, file))
-    print(len(file_list))
+                i+=1
+            if i>=5:
+                flag=1
+                break
+        if flag==1:
+            break
+    print(len(file_list),file_list)
     
     
     #plot_sample_sizes()
     #'AliveObjectXYs2at.txt','AliveObjectXYs3at.txt','AliveObjectXYs4at.txt','AliveObjectXYs5at.txt','AliveObjectXYs6at.txt','AliveObjectXYs8at.txt']
     #'12-27-24_1a_ObjectXYs.txt','12-27-24_1b_ObjectXYs.txt','1-3-25_1a_ObjectXYs.txt','1-6-25_1a_ObjectXYs.txt'
     #get_displacements(file_list)
-    make_collage()
+    #make_collage()
+    plot_accuracy_window()

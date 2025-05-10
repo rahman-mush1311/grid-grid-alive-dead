@@ -117,7 +117,7 @@ class GridProbabilityCalculator:
         else:
             print(f"current cell [{grid_row}][{grid_col}] mu is: {cell_mu} sigma is: {cell_cov_matrix}  probabilities: empty for {dx,dy}")
             return 
-            
+   
     def combine_dictionary_observation(self, curr_obs, total_obs):
         '''
         this functions combines multiple dictionary observations.
@@ -157,7 +157,6 @@ class GridProbabilityCalculator:
                 obs_dict_with_labels[obj_id][TRUE_LABELS]=label
                 
         return obs_dict_with_labels
-        
     def find_grid_cell(self, x, y):
         grid_row = y * self.num_rows() // self.max_y
         grid_col = x * self.num_cols() // self.max_x
