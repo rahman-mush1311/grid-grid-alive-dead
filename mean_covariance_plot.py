@@ -69,7 +69,9 @@ def get_displacements(filelists):
         dataset_name=prefix+"_"+extension
        
         #plot_mean_covariance(observations,dataset_name)
-        dead_observations,alive_observations=split_observations_by_displacements(observations)
+        #dead_observations,alive_observations=split_observations_by_displacements(observations)
+        displacement_observations=split_observations_by_displacements(observations)
+    return displacement_observations
     
     
 def plot_stat_bars(curr_list):
@@ -171,22 +173,12 @@ def plot_mean_covariance(curr_obs,dataset_name):
     
     
     for obj_id, obs in curr_obs.items():
-        #print(obj_id)
-        for i in range(len(obs) - 1):
-            if len(obs)>3:
-                dframe = obs[i+1][0] - obs[i][0]                   
-                if dframe>0:
-                        
-                    dx = obs[i+1][1] - obs[i][1]
-                    dy = obs[i+1][2] - obs[i][2]
-                    points.append((dx/dframe,dy/dframe))
-                    if obj_id=='AliveObjects_143_1at':
-                        #print("found it")
-                        dx_points.append(obs[i][1])
-                        dy_points.append(obs[i][2])                    
-                else:
-                    print(f"dframe has invalid {dframe}") 
-    
+        #print(obj_id, obs)
+        for i in range(len(obs) - 1):                     
+            dx = obs[i][0]
+            dy = obs[i][1]
+            points.append((dx,dy))
+                                      
     points=np.array(points)
     # Compute the mean vector
     mean_vector = np.mean(points, axis=0)
@@ -198,10 +190,18 @@ def plot_mean_covariance(curr_obs,dataset_name):
     print("Mean Vector:\n", mean_vector)
     print("\nCovariance Matrix:\n", cov_matrix)
     
-    sns.jointplot(x=points[:, 0], y=points[:, 1], kind='kde')
-    plt.xlabel("dx")
-    plt.ylabel("dy")
-    plt.title(f"Displacement Distribution for {dataset_name}")
+    shapiro_dx = shapiro(points[:, 0])  # dx
+    shapiro_dy = shapiro(points[:, 1])  # dy
+    print("dx:", shapiro_dx)
+    print("dy:", shapiro_dy)
+
+    
+    g = sns.jointplot(x=points[:, 0], y=points[:, 1], kind='kde', height=6, ratio=4)
+    g.set_axis_labels("dx", "dy")
+
+    # Manually add title to the whole figure
+    plt.suptitle(f"Displacement Distribution for {dataset_name}", y=1.02)
+    plt.tight_layout()
     plt.show()
    
   
@@ -211,6 +211,7 @@ def split_observations_by_displacements(curr_obs):
     all_dx = []
     all_dy = []
     object_avg = {}
+    object_displacements = collections.defaultdict(list)
     
     dead_obs = collections.defaultdict(list)
     alive_obs = collections.defaultdict(list)
@@ -227,6 +228,7 @@ def split_observations_by_displacements(curr_obs):
                 dy_list.append(dy)
                 all_dx.append(dx)
                 all_dy.append(dy)
+                object_displacements[obj_id].append((dx,dy))
                     
             else:
                 print(f"dframe has invalid value: {dframe}")
@@ -241,21 +243,21 @@ def split_observations_by_displacements(curr_obs):
     global_avg_dy = sum(all_dy) / len(all_dy)
 
     #print(f"Global avg max dx: {global_avg_dx:.2f}, dy: {global_avg_dy:.2f}")
+    first_key = next(iter(object_displacements))
+    first_item = (first_key, object_displacements[first_key])
+    print(first_item)
 
     # Second pass: classify based on max dx/dy vs global averages
     for obj_id, (avg_dx, avg_dy) in object_avg.items():
-        obs = curr_obs[obj_id]
+        obs = object_displacements[obj_id]
         #print(f"for {obj_id}: {max_dx}, {max_dy}")
         if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
-            alive_obs[obj_id] = len(obs)
+            alive_obs[obj_id] = obs
         elif len(obs) > 5:
-            dead_obs[obj_id] = len(obs)
+            dead_obs[obj_id] = obs
 
     print(f"From split function: total={len(curr_obs)}, dead={len(dead_obs)}, alive={len(alive_obs)}")
-    dead_total_sum = sum(dead_obs.values()) 
-    alive_total_sum=sum(alive_obs.values())
-    print(f"dead_ds {dead_total_sum}, alive_ds {alive_total_sum}")
-    return dead_obs, alive_obs   
+    return object_displacements   
     
 def mean_covariance_plot(grid_mu,grid_cov):
     # Step 1: Compute global range for all plots
@@ -432,7 +434,7 @@ def plot_accuracy_window():
     #accuracy_values = [0.772, 0.770, 0.777, 0.774, 0.773, 0.773, 0.773, 0.773, 0.773, 0.775] 
     #accuracy_values = [-19.088, -10.104, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088, -19.088] 
     accuracy_values = [0.392, 0.425, 0.562, 0.455, 0.375, 0.333, 0.250, 0.000, 0.000, 0.000] 
-    '''
+    
     grid_sizes = [3, 5]
     parameter_counts = [grid**2 * 5 for grid in grid_sizes]
     sample_counts = [271, 1300]
@@ -443,20 +445,30 @@ def plot_accuracy_window():
     bayesian_test_accuracy = [0.582, 0.737]
     
     x_labels = [f"{p} ({s})" for p, s in zip(parameter_counts, sample_counts)]
+    '''
+    batch_sizes = [16, 32,64]
+    
+    train_time_normalized_without_dropout = [3.0, 2.5, 2.0]   
+    train_time_non_normalized_without_dropout = [22.0, 20.0, 14.5] 
+
+    
     
     # Plotting
     plt.figure(figsize=(8, 5))
-    plt.plot(x_labels, outlier_train_accuracy, label='Outlier Train Accuracy', linestyle='-', color='blue')
-    plt.plot(x_labels, bayesian_train_accuracy, label='Bayesian Train Accuracy', linestyle='-', color='red')
-    plt.plot(x_labels, outlier_test_accuracy, label='Outlier Test Accuracy', linestyle='-', color='green')
-    plt.plot(x_labels, bayesian_test_accuracy, label='Bayesian Test Accuracy', linestyle='-', color='orange')
-   
+    #plt.plot(batch_sizes, train_time_normalized_without_dropout, label='Train Time Normalized Without Dropout', linestyle='-', color='blue')
+    #plt.plot(batch_sizes, train_time_non_normalized_without_dropout, label='Train Time Non-Normalized Without Dropout', linestyle='-', color='red')
+    plt.scatter(batch_sizes, train_time_normalized_without_dropout, label='Non-Normalized', color='blue')
+    plt.plot(batch_sizes, train_time_normalized_without_dropout, linestyle='-', color='blue')
 
-    plt.xlabel('Number of Parameters (Number of Samples)')
-    plt.ylabel('Accuracy')
-    plt.title('Outlier vs Bayesian Model Accuracy Across Grid Sizes')
-    plt.grid(True)
-    plt.ylim(0.50, 1.0)
+    # Second: With Dropout
+    plt.scatter(batch_sizes, train_time_non_normalized_without_dropout, label='Normalized', color='red')
+    plt.plot(batch_sizes, train_time_non_normalized_without_dropout, linestyle='-', color='red')
+   
+    plt.xticks(batch_sizes)
+    plt.xlabel('Batch Sizes')
+    plt.ylabel('Time in Minutes')
+    plt.title('Train Time on displacements types for Batch Sizes')
+    #plt.ylim(0.1, 1.0)
     plt.legend()
     plt.tight_layout()
     plt.show()
@@ -492,7 +504,7 @@ if __name__ == "__main__":
             if file.endswith(".txt"):  # Only add .txt files
                 file_list.append(os.path.join(root, file))
                 i+=1
-            if i>=5:
+            if i>=1:
                 flag=1
                 break
         if flag==1:
@@ -501,8 +513,8 @@ if __name__ == "__main__":
     
     
     #plot_sample_sizes()
-    #'AliveObjectXYs2at.txt','AliveObjectXYs3at.txt','AliveObjectXYs4at.txt','AliveObjectXYs5at.txt','AliveObjectXYs6at.txt','AliveObjectXYs8at.txt']
-    #'12-27-24_1a_ObjectXYs.txt','12-27-24_1b_ObjectXYs.txt','1-3-25_1a_ObjectXYs.txt','1-6-25_1a_ObjectXYs.txt'
-    #get_displacements(file_list)
+    obs=get_displacements(file_list)
+    plot_mean_covariance(obs,"all")
+    #plot_mean_covariance(alive_obs,"alive")
     #make_collage()
-    plot_accuracy_window()
+    #plot_accuracy_window()

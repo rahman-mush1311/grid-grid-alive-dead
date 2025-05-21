@@ -22,7 +22,7 @@ def get_train_test_observation_stats():
     alive_test_obs={}
     
     file_loader = ParsingObservations()
-    file_loader.load_files_from_folder(ALIVE,5)
+    file_loader.load_files_from_folder(ALIVE,12)
     
     for files in file_loader.filelists:
         #parse a single file

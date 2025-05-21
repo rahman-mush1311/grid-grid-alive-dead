@@ -150,8 +150,10 @@ class ParsingObservations:
                 alive_obs[obj_id] = obs
             elif len(obs) > 5:
                 dead_obs[obj_id] = obs
-     
-
+        '''
+        if prefix.startswith("A") and len(dead_obs)>25:
+            dead_obs = dict(list(dead_obs.items())[:25])
+        '''
         
         return dead_obs,alive_obs,all_dx_dy_mu,all_dx_dy_cov
     

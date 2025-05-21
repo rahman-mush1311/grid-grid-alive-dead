@@ -22,11 +22,11 @@ def get_train_test_observation_stats():
     alive_test_obs={}
     
     file_loader = ParsingObservations()
-    file_loader.load_files_from_folder(ALIVE,5)
+    file_loader.load_files_from_folder(ALIVE,12)
     
     for files in file_loader.filelists:
         #parse a single file
-        observations=file_loader.load_observations(files)
+        observations,prefix=file_loader.load_observations(files)
         #split the single file into train test set
         train_observations,test_observations=file_loader.prepare_train_test(observations,train_ratio=0.8)
         #get labels and stats for the train file
@@ -143,7 +143,7 @@ def evaluate_train_model_with_threshold(curr_set):
 if __name__ == "__main__":
 
     file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats=get_train_test_observation_stats()
-    '''
+    
     outlier_model=combine_dead_models(file_loader, dead_train_obs, observation_stats)
     print(f"$$$$$$$$$$$$$$$for dead train$$$$$$$$$$$$$$")
     train_dead_with_dead_probs=compute_probabilities_outlier_model(file_loader, dead_train_obs, observation_stats,outlier_model,DEAD)
@@ -161,4 +161,4 @@ if __name__ == "__main__":
     test_probablity_set=test_dead_with_dead_probs|test_dead_with_alive_probs
     predicted_test_probability_set=dead_outlier_model_eval.predict_probabilities_dictionary_update(test_probablity_set)
     dead_outlier_model_eval.plot_confusion_matrix_outlier_model(predicted_test_probability_set, "Test")
-    '''
+    
