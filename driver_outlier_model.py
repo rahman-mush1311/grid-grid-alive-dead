@@ -35,17 +35,17 @@ def get_train_test_observation_stats():
         #store the stats for train set and store the dead alive obs
         observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov} 
         #get the labels for the train file if they belong to date-files all of them should be in dead_obs otherwise split them according to their std and ranking
-        train_dead_observations,train_alive_observations=file_loader.split_observations_by_displacements(train_observations,train_obs_cov,files)
+        #train_dead_observations,train_alive_observations=file_loader.split_observations_by_displacements(train_observations,train_obs_cov,files)
         #get variance based laebls for all:
-        #train_dead_observations,train_alive_observations=file_loader.split_observations_by_variance(train_observations,train_obs_cov,files)
+        train_dead_observations,train_alive_observations=file_loader.split_observations_by_variance(train_observations,train_obs_cov,files)
         
         if len(train_dead_observations)>0:               
             dead_train_obs[files]=train_dead_observations
         if len(train_alive_observations)>0:
             alive_train_obs[files]=train_alive_observations
         #split the test into dead and alive store them
-        test_dead_observations,test_alive_observations=file_loader.split_observations_by_displacements(test_observations,train_obs_cov,files)
-        #test_dead_observations,test_alive_observations=file_loader.split_observations_by_variance(test_observations,train_obs_cov,files)
+        #test_dead_observations,test_alive_observations=file_loader.split_observations_by_displacements(test_observations,train_obs_cov,files)
+        test_dead_observations,test_alive_observations=file_loader.split_observations_by_variance(test_observations,train_obs_cov,files)
         if len(test_dead_observations)>0:
             dead_test_obs[files]=test_dead_observations
         if len(test_alive_observations)>0:
