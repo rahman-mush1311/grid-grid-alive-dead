@@ -22,23 +22,34 @@ def get_train_test_observation_stats():
     alive_test_obs={}
     
     file_loader = ParsingObservations()
-    file_loader.load_files_from_folder(ALIVE,12)
+    file_loader.load_files_from_folder(ALIVE,5)
     
     for files in file_loader.filelists:
         #parse a single file
+        print(f"filename is: {files}")
         observations=file_loader.load_observations(files)
         #split the single file into train test set
         train_observations,test_observations=file_loader.prepare_train_test(observations,train_ratio=0.8)
-        #get labels and stats for the train file
-        train_dead_observations,train_alive_observations,train_obs_mu,train_obs_cov=file_loader.split_observations_by_displacements(train_observations)
+        #get stats for the train file
+        train_obs_mu,train_obs_cov=file_loader.compute_global_stats(train_observations)
         #store the stats for train set and store the dead alive obs
-        observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov}        
-        dead_train_obs[files]=train_dead_observations
-        alive_train_obs[files]=train_alive_observations
+        observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov} 
+        #get the labels for the train file if they belong to date-files all of them should be in dead_obs otherwise split them according to their std and ranking
+        train_dead_observations,train_alive_observations=file_loader.split_observations_by_displacements(train_observations,train_obs_cov,files)
+        #get variance based laebls for all:
+        #train_dead_observations,train_alive_observations=file_loader.split_observations_by_variance(train_observations,train_obs_cov,files)
+        
+        if len(train_dead_observations)>0:               
+            dead_train_obs[files]=train_dead_observations
+        if len(train_alive_observations)>0:
+            alive_train_obs[files]=train_alive_observations
         #split the test into dead and alive store them
-        test_dead_observations,test_alive_observations,_,_=file_loader.split_observations_by_displacements(test_observations)
-        dead_test_obs[files]=test_dead_observations
-        alive_test_obs[files]=test_alive_observations
+        test_dead_observations,test_alive_observations=file_loader.split_observations_by_displacements(test_observations,train_obs_cov,files)
+        #test_dead_observations,test_alive_observations=file_loader.split_observations_by_variance(test_observations,train_obs_cov,files)
+        if len(test_dead_observations)>0:
+            dead_test_obs[files]=test_dead_observations
+        if len(test_alive_observations)>0:
+            alive_test_obs[files]=test_alive_observations
         
     return file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats
 
@@ -100,25 +111,29 @@ def compute_probabilities_outlier_model(file_loader, curr_train_obs, observation
     outlier_model_probabilities={}
     
     for file in file_loader.filelists:
-        curr_observations = curr_train_obs[file]
-        curr_obs_stats= observation_stats[file]
+        if file not in curr_train_obs:
+            print(f"Warning: {file} not found in current_models_params.")
+            continue  # Skip this file if not found
+        else:
+            curr_observations = curr_train_obs[file]
+            curr_obs_stats= observation_stats[file]
         
-        # Step 1: Get normalization statistics
-        dx_norm, dy_norm = curr_obs_stats['mu']
-        sx_norm, sy_norm = numpy.sqrt(numpy.diag(curr_obs_stats['cov']))
+            # Step 1: Get normalization statistics
+            dx_norm, dy_norm = curr_obs_stats['mu']
+            sx_norm, sy_norm = numpy.sqrt(numpy.diag(curr_obs_stats['cov']))
         
-        # Step 2: Copy parameters into calculator
-        calculator = GridProbabilityCalculator()
-        calculator.mu = outlier_model.mu
-        calculator.cov_matrix = outlier_model.cov_matrix
-        calculator.n = outlier_model.n
+            # Step 2: Copy parameters into calculator
+            calculator = GridProbabilityCalculator()
+            calculator.mu = outlier_model.mu
+            calculator.cov_matrix = outlier_model.cov_matrix
+            calculator.n = outlier_model.n
         
-        # Step 3: Compute log-probabilities
-        curr_log_pdf_dict, _ = calculator.compute_probabilities(curr_observations, dx_norm, dy_norm, sx_norm, sy_norm)
+            # Step 3: Compute log-probabilities
+            curr_log_pdf_dict, _ = calculator.compute_probabilities(curr_observations, dx_norm, dy_norm, sx_norm, sy_norm)
         
-        # Step 4: Merge into master dictionary
-        outlier_model_probabilities = calculator.combine_data_with_labels(curr_log_pdf_dict, outlier_model_probabilities, label)
-        print(f"from probability calculator {len(outlier_model_probabilities)}")
+            # Step 4: Merge into master dictionary
+            outlier_model_probabilities = calculator.combine_data_with_labels(curr_log_pdf_dict, outlier_model_probabilities, label)
+            print(f"from probability calculator {len(outlier_model_probabilities)}")
     
     return outlier_model_probabilities
 
