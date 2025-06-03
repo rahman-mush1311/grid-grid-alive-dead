@@ -138,7 +138,7 @@ class OutlierModelEvaluation:
             for threshold in self.filtered_thresholds:
                 true_labels = []
                 predictions = []
-               
+ 
                 for obj_id, values in curr_obs.items():
                     cls = DEAD
                     log_values = values[LOG_PDFS]
@@ -147,6 +147,7 @@ class OutlierModelEvaluation:
                         if all(p <= threshold for p in w):
                             cls = ALIVE
                             break
+                    
                     predictions.append(1 if cls == ALIVE else 0)
                     true_labels.append(1 if values[TRUE_LABELS] == ALIVE else 0)
                            
@@ -171,8 +172,8 @@ class OutlierModelEvaluation:
                     self.window_size=window
                     self.optimal_threshold= threshold
                     
-            print(f"for window: {window} window_reset {self.window_size} classify {self.best_classify} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}\n"
-                   f"Optimal Threshold: {self.optimal_threshold}")      
+                    print(f"for window: {window} window_reset {self.window_size} classify {self.best_classify} {accuracy:<10.3f}{f1:<10.3f}{recall:<10.3f}{precision:<10.3f}\n"
+                            f"Optimal Threshold: {self.optimal_threshold}")      
            
     def find_the_needed_obj_id(self,curr_obs,label_true,label_predicted):
         '''

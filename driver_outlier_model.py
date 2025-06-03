@@ -34,18 +34,22 @@ def get_train_test_observation_stats():
         train_obs_mu,train_obs_cov=file_loader.compute_global_stats(train_observations)
         #store the stats for train set and store the dead alive obs
         observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov} 
-        #get the labels for the train file if they belong to date-files all of them should be in dead_obs otherwise split them according to their std and ranking
+        ###########get the labels for the train file if they belong to date-files all of them should be in dead_obs otherwise split them according to their std and ranking
         #train_dead_observations,train_alive_observations=file_loader.split_observations_by_displacements(train_observations,train_obs_cov,files)
-        #get variance based laebls for all:
-        train_dead_observations,train_alive_observations=file_loader.split_observations_by_variance(train_observations,train_obs_cov,files)
-        
+        #$$$$$$$$$$$$$$get filename based laebls for all$$$$$$$$$$$$$$
+        #train_dead_observations,train_alive_observations=file_loader.split_observations_by_filename(train_observations,files)
+        #$$$$$$$$$$$$$$$get labels based on average$$$$$$$$$$$$$$$$$$$
+        train_dead_observations,train_alive_observations=file_loader.split_observations_by_average(train_observations,train_obs_mu,train_obs_cov,files)
         if len(train_dead_observations)>0:               
             dead_train_obs[files]=train_dead_observations
         if len(train_alive_observations)>0:
             alive_train_obs[files]=train_alive_observations
-        #split the test into dead and alive store them
+        ############split the test into dead and alive store them by std ranking##############
         #test_dead_observations,test_alive_observations=file_loader.split_observations_by_displacements(test_observations,train_obs_cov,files)
-        test_dead_observations,test_alive_observations=file_loader.split_observations_by_variance(test_observations,train_obs_cov,files)
+        ############split the test into dead alive by filename################################
+        #test_dead_observations,test_alive_observations=file_loader.split_observations_by_filename(test_observations,files)
+        ############split the test into dead alive by average################################
+        test_dead_observations,test_alive_observations=file_loader.split_observations_by_average(test_observations,train_obs_mu,train_obs_cov,files)
         if len(test_dead_observations)>0:
             dead_test_obs[files]=test_dead_observations
         if len(test_alive_observations)>0:
@@ -82,6 +86,7 @@ def combine_dead_models(file_loader, dead_train_obs, observation_stats):
                 f"{dead_models_params[file].total_cov_matrix} ")
             print (f"{file} stats are: {observation_stats[file]['mu']}, {observation_stats[file]['cov']}")
             '''
+            
         else:
             print(f"this {file} doesn't contain any normalization contents")
     #####Combine the dead models######   
@@ -89,22 +94,24 @@ def combine_dead_models(file_loader, dead_train_obs, observation_stats):
     
     # Track the models
     calculated_models = []
+    valid_file_size=0
     for i, files in enumerate(file_loader.filelists):
         get_file = files
+        
         if get_file not in dead_models_params:
-            print(f"Warning: {get_file} not found in current_models_params.")
+            print(f"Warning: {get_file} not found in current_models_params for combining parameters.")
             continue  # Skip this file if not found
-
-        # Store the last two models
-        calculated_models.append(dead_models_params[get_file])
-
-        # When reaching the last file, combine the last two models
-        if i == len(file_loader.filelists) - 1:  # Last file
-            print(len(calculated_models))
-            combined_model = combined_model.add_models(*calculated_models)  # Unpack list
         else:
-            print("Not all models yet to combine.")
-    #print(f"from combine model after combining all: {combined_model.mu}\n {combined_model.cov_matrix}")
+            # Store the last two models
+            calculated_models.append(dead_models_params[get_file])
+            valid_file_size+=1
+    # When reaching the last file, combine the last two models
+    if i == len(file_loader.filelists) - 1:  # Last file
+        print(f" models to combine size {len(calculated_models)}")
+        combined_model = combined_model.add_models(*calculated_models)  # Unpack list
+    elif valid_file_size>0:
+        combined_model = combined_model.add_models(*calculated_models)
+        print("only dead models size {valid_file_size}")
     return combined_model
 def compute_probabilities_outlier_model(file_loader, curr_train_obs, observation_stats,outlier_model,label):
 
@@ -112,7 +119,7 @@ def compute_probabilities_outlier_model(file_loader, curr_train_obs, observation
     
     for file in file_loader.filelists:
         if file not in curr_train_obs:
-            print(f"Warning: {file} not found in current_models_params.")
+            print(f"Warning: {file} not found in current_models_params for calculating probability.")
             continue  # Skip this file if not found
         else:
             curr_observations = curr_train_obs[file]
@@ -158,12 +165,14 @@ def evaluate_train_model_with_threshold(curr_set):
 if __name__ == "__main__":
 
     file_loader,dead_train_obs,alive_train_obs,dead_test_obs,alive_test_obs,observation_stats=get_train_test_observation_stats()
-    
     outlier_model=combine_dead_models(file_loader, dead_train_obs, observation_stats)
+   
     print(f"$$$$$$$$$$$$$$$for dead train$$$$$$$$$$$$$$")
     train_dead_with_dead_probs=compute_probabilities_outlier_model(file_loader, dead_train_obs, observation_stats,outlier_model,DEAD)
+    
     print(f"$$$$$$$$$$$$for alive train$$$$$$$$$$$$$$$$$$$$$")
     train_dead_with_alive_probs=compute_probabilities_outlier_model(file_loader, alive_train_obs, observation_stats,outlier_model,ALIVE)
+    
     train_probablity_set=train_dead_with_dead_probs|train_dead_with_alive_probs
     ####Thresholding#####
     predicted_train_set,dead_outlier_model_eval=evaluate_train_model_with_threshold(train_probablity_set)

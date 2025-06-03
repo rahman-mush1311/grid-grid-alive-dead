@@ -128,55 +128,28 @@ class ParsingObservations:
         
         print(f"Global avg var: {all_dx_dy_var[0]:.2f}, dy: {all_dx_dy_var[1]:.2f}")
         return all_dx_dy_mu,all_dx_dy_cov
-    def split_observations_by_variance(self, curr_obs, global_dx_dy_cov,curr_filename):
+    def split_observations_by_filename(self, curr_obs,curr_filename):
     
         prefix,extension = self.get_file_prefix(curr_filename)
         print(prefix, extension)
         
-        object_avg = {}
         dead_obs = collections.defaultdict(list)
         alive_obs = collections.defaultdict(list)
         
-        global_var_dx = global_dx_dy_cov[0][0]
-        global_var_dy = global_dx_dy_cov[1][1]
-        if prefix.startswith("A"):
-            # First pass: compute max dx/dy per object
+        if prefix.startswith("A"): 
             for obj_id, obs in curr_obs.items():
-                curr_obj_dx_dy=[]   
-                for i in range(len(obs) - 1):
-                    dframe = obs[i+1][0] - obs[i][0]
-                    if dframe > 0:
-                        dx = (obs[i+1][1] - obs[i][1]) / dframe
-                        dy = (obs[i+1][2] - obs[i][2]) / dframe
-                        curr_obj_dx_dy.append([dx,dy]) 
-                    
-                    else:
-                        print(f"dframe has invalid value: {dframe}")
-                    if curr_obj_dx_dy:
-                        curr_obj_dx_dy_np = numpy.array(curr_obj_dx_dy)
-                        curr_obj_dx_dy_mu = numpy.mean(curr_obj_dx_dy_np , axis=0)
-                        curr_obj_dx_dy_var = numpy.var(curr_obj_dx_dy_np , axis=0)
-                        avg_dx,avg_dy=curr_obj_dx_dy_mu[0],curr_obj_dx_dy_mu[1]
-                        object_avg[obj_id] = (avg_dx, avg_dy,curr_obj_dx_dy_var[0],curr_obj_dx_dy_var[1])
-                
+                if len(obs)>=5:
+                        alive_obs[obj_id]=obs
             
-            for obj_id, (avg_dx, avg_dy,var_dx,var_dy) in object_avg.items():
-                obs = curr_obs[obj_id]
-                '''
-                if len(obs) > 5 and (avg_dx > global_avg_dx and avg_dy > global_avg_dy):
-                    alive_obs[obj_id] = obs
-                '''
-                if len(obs) > 5 and (var_dx > global_var_dx or var_dy > global_var_dy):
-                    alive_obs[obj_id] = obs
-                elif len(obs) > 5:
-                    dead_obs[obj_id] = obs
         else:
-            dead_obs=curr_obs
-        print(f"from variance split function: total obs len is {len(curr_obs)}, dead obs len is {len(dead_obs)} and alive obs len is {len(alive_obs)}")
+            for obj_id, obs in curr_obs.items():
+                if len(obs)>=5:
+                        dead_obs[obj_id]=obs
+        print(f"from filewise name label function: total obs len is {len(curr_obs)}, dead obs len is {len(dead_obs)} and alive obs len is {len(alive_obs)}")
         
         return dead_obs,alive_obs
     def split_observations_by_displacements(self, curr_obs, global_dx_dy_cov,curr_filename):
-       
+        #need to subtract mu, take the absoulate value in subtraction values
         prefix,extension = self.get_file_prefix(curr_filename)
         print(prefix, extension)
         
@@ -216,7 +189,7 @@ class ParsingObservations:
                     elif len(obs)>=5:
                         alive_obs[obj_id]=obs
                     '''
-                    indices = sorted(set(both_dxdy_indices))
+                    indices = sorted(set(both_dxdy_indices)) #don't need that
                     flag=False
                     window_size=3
                     ############SANITY CHECKING###############
@@ -252,6 +225,65 @@ class ParsingObservations:
         
         return dead_obs,alive_obs
     
+    def split_observations_by_average(self, curr_obs, global_dx_dy_mu,global_dx_dy_cov,curr_filename):
+    
+        prefix,extension = self.get_file_prefix(curr_filename)
+        print(prefix, extension)
+        
+        object_avg = {}
+
+        dead_obs = collections.defaultdict(list)
+        alive_obs = collections.defaultdict(list)
+        
+        global_avg_dx=global_dx_dy_mu[0]
+        global_avg_dy=global_dx_dy_mu[1]
+        global_std_dx = numpy.sqrt(global_dx_dy_cov[0][0])
+        global_std_dy = numpy.sqrt(global_dx_dy_cov[1][1])
+        global_var_dx = global_dx_dy_cov[0][0]
+        global_var_dy = global_dx_dy_cov[1][1]
+        
+        
+        if prefix.startswith("A"):
+            # First pass: compute max dx/dy per object
+            for obj_id, obs in curr_obs.items():
+                curr_obj_dx_dy=[]   
+                for i in range(len(obs) - 1):
+                    dframe = obs[i+1][0] - obs[i][0]
+                    if dframe > 0:
+                        dx = (obs[i+1][1] - obs[i][1]) / dframe
+                        dy = (obs[i+1][2] - obs[i][2]) / dframe
+                        curr_obj_dx_dy.append([dx,dy]) 
+                    
+                    else:
+                        print(f"dframe has invalid value: {dframe}")
+                if curr_obj_dx_dy:
+                    curr_obj_dx_dy_np = numpy.array(curr_obj_dx_dy)
+                    curr_obj_dx_dy_mu = numpy.mean(curr_obj_dx_dy_np , axis=0)
+                    curr_obj_dx_dy_var = numpy.var(curr_obj_dx_dy_np , axis=0)
+                    avg_dx,avg_dy=curr_obj_dx_dy_mu[0],curr_obj_dx_dy_mu[1]
+                    object_avg[obj_id] = (avg_dx, avg_dy,curr_obj_dx_dy_var[0],curr_obj_dx_dy_var[1])
+                
+            
+            for obj_id, (avg_dx, avg_dy,var_dx,var_dy) in object_avg.items():
+                obs = curr_obs[obj_id]
+                z_dx=(avg_dx-global_avg_dx)
+                z_dy=(avg_dy-global_avg_dy)
+                if len(obs) > 5 and ((avg_dx > global_avg_dx or avg_dy >global_avg_dy) or (var_dx > global_var_dx or var_dy > global_var_dy)):
+                    alive_obs[obj_id] = obs
+                    
+                elif len(obs) > 5:
+                    dead_obs[obj_id] = obs
+                   
+            
+        else:
+            for obj_id, obs in curr_obs.items():
+                if len(obs)>=5:
+                        dead_obs[obj_id]=obs
+       
+        print(f"from average split function: total obs len is {len(curr_obs)}, dead obs len is {len(dead_obs)} and alive obs len is {len(alive_obs)}")
+        
+        return dead_obs,alive_obs
+    
     def prepare_train_test(self,curr_obs,train_ratio=0.8):
         """
         Splits a dictionary into train and test sets based on a specified ratio.
@@ -281,31 +313,26 @@ class ParsingObservations:
 
         return train_dict,test_dict
     
-    def visualize_object_trajectory(self, curr_obs):
+    def visualize_labeled_objects(self,alive_points,dead_points,global_avg_dx,global_avg_dy,filename):
     
-        save_dir = 'results/trajectory_non_moving'
-        os.makedirs(save_dir, exist_ok=True)
-        
-        if len(curr_obs)>1:
-            for obj_id, data in curr_obs.items():
-    
-                frames, xs, ys = zip(*data)
+        alive_x, alive_y = zip(*alive_points) if alive_points else ([], [])
+        dead_x, dead_y = zip(*dead_points) if dead_points else ([], [])
 
-                plt.figure(figsize=(8, 6))
-                plt.plot(xs, ys, marker='o', linestyle='-', label=f'Object {obj_id}')
+        # Plotting
+        plt.figure(figsize=(8, 6))
+        plt.scatter(dead_x, dead_y, color='red', alpha=0.6, label='Non-moving')
+        plt.scatter(alive_x, alive_y, color='green', alpha=0.8, label='Moving')
 
-                plt.title(f"Trajectory of Object {obj_id}")
-                plt.xlabel("X")
-                plt.ylabel("Y")
-                plt.grid(True)
-                plt.axis("equal")
-                plt.legend()
-                #plt.show()
-                filename = f"trajectory_obj_{obj_id}.png"
-                filepath = os.path.join(save_dir, filename)
-                plt.savefig(filepath, bbox_inches='tight')
-                plt.close()
-        else:
-            print(f"it is empty")
+        # Threshold lines
+        plt.axvline(global_avg_dx, color='blue', linestyle='--', linewidth=2, label='Global Mean dx')
+        plt.axhline(global_avg_dy, color='orange', linestyle='--', linewidth=2, label='Global Mean dy')
+
+        plt.xlabel('Average dx')
+        plt.ylabel('Average dy')
+        plt.title('Average & Variance-Based Labeling')
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
 
     

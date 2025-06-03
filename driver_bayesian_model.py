@@ -36,14 +36,18 @@ def get_train_test_observation_stats():
         observation_stats[files]= {'mu': train_obs_mu, 'cov': train_obs_cov} 
         #get the labels for the train file if they belong to date-files all of them should be in dead_obs otherwise split them
         #train_dead_observations,train_alive_observations=file_loader.split_observations_by_displacements(train_observations,train_obs_cov,files)
-        train_dead_observations,train_alive_observations=file_loader.split_observations_by_variance(train_observations,train_obs_cov,files)
+        #train_dead_observations,train_alive_observations=file_loader.split_observations_by_filename(train_observations,files)
+        #$$$$$$$$$$$$$$$get labels based on average$$$$$$$$$$$$$$$$$$$
+        train_dead_observations,train_alive_observations=file_loader.split_observations_by_average(train_observations,train_obs_mu,train_obs_cov,files)
         if len(train_dead_observations)>0:               
             dead_train_obs[files]=train_dead_observations
         if len(train_alive_observations)>0:
             alive_train_obs[files]=train_alive_observations
         #split the test into dead and alive store them
         #test_dead_observations,test_alive_observations=file_loader.split_observations_by_displacements(test_observations,train_obs_cov,files)
-        test_dead_observations,test_alive_observations=file_loader.split_observations_by_variance(test_observations,train_obs_cov,files)
+        #test_dead_observations,test_alive_observations=file_loader.split_observations_by_filename(test_observations,files)
+        ############split the test into dead alive by average################################
+        test_dead_observations,test_alive_observations=file_loader.split_observations_by_average(test_observations,train_obs_mu,train_obs_cov,files)
         if len(test_dead_observations)>0:
             dead_test_obs[files]=test_dead_observations
         if len(test_alive_observations)>0:
@@ -117,21 +121,25 @@ def combine_train_models(file_loader, curr_train_obs, observation_stats):
     
     # Track the models
     calculated_models = []
+    valid_file_size=0
     for i, files in enumerate(file_loader.filelists):
         get_file = files
+        
         if get_file not in curr_models_params:
             print(f"Warning: {get_file} not found in current_models_params.")
             continue  # Skip this file if not found
-
-        # Store the last two models
-        calculated_models.append(curr_models_params[get_file])
-
-        # When reaching the last file, combine the last two models
-        if i == len(file_loader.filelists) - 1:  # Last file
-            print(len(calculated_models))
-            combined_model = combined_model.add_models(*calculated_models)  # Unpack list
         else:
-            print("Not all models yet to combine.")
+            # Store the models
+            calculated_models.append(curr_models_params[get_file])
+            valid_file_size+=1
+
+    # When reaching the last file, combine the last two models
+    if i == len(file_loader.filelists) - 1:  # Last file
+        print(len(calculated_models))
+        combined_model = combined_model.add_models(*calculated_models)  # Unpack list
+    elif valid_file_size>0:
+        print("models to combine {valid_file_size}.")
+        combined_model = combined_model.add_models(*calculated_models)
     #print(f"from combine model after combining all: {combined_model.mu}\n {combined_model.cov_matrix}")
     return combined_model
 if __name__ == "__main__":
@@ -140,6 +148,8 @@ if __name__ == "__main__":
     
     bayesian_dead_model=combine_train_models(file_loader, dead_train_obs, observation_stats)
     bayesian_alive_model=combine_train_models(file_loader, alive_train_obs, observation_stats)
+    
+    
     print(f"$$$$$$$$$$$$$$$for dead model train$$$$$$$$$$$$$$")
     train_dead_obs_with_dead_probs=compute_probabilities_with_models(file_loader, dead_train_obs, observation_stats,bayesian_dead_model,DEAD)
     train_alive_obs_with_dead_probs=compute_probabilities_with_models(file_loader, alive_train_obs, observation_stats,bayesian_dead_model,ALIVE)

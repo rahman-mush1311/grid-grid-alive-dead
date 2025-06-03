@@ -116,7 +116,7 @@ class GridProbabilityCalculator:
             return curr_probability
         else:
             print(f"current cell [{grid_row}][{grid_col}] mu is: {cell_mu} sigma is: {cell_cov_matrix}  probabilities: empty for {dx,dy}")
-            return 
+            return 0.0
    
     def combine_dictionary_observation(self, curr_obs, total_obs):
         '''
