@@ -75,6 +75,29 @@ class GridDisplacementModel:
             print(f"it doesn't contain any observations")
                     
         return grid_dis
+        
+    def normalization(self,points):
+        '''
+        this calculates the normalization variables mean_vector,cov_matrix for the overall dataset and assigns as class's total_mu, total_cov_matrix.
+        
+        Parameters:
+        - points: contains all the points of the particular dataset's trainning set.
+        
+        Returns:
+        -N/A
+        '''
+        points=numpy.array(points)
+        # Compute the mean vector
+        mean_vector = numpy.mean(points, axis=0)
+
+        # Compute the covariance matrix
+        cov_matrix = numpy.cov(points, rowvar=False)
+        
+        self.total_mu=mean_vector
+        self.total_cov_matrix=cov_matrix
+        # Print results sanity check
+        #print("Mean Vector:\n", mean_vector)
+        #print("\nCovariance Matrix:\n", cov_matrix)
       
         
     def apply_normalization(self,grid_displacements):
@@ -95,7 +118,7 @@ class GridDisplacementModel:
                     grid_displacements[row][col] = [((dx - mu_x) / std_x, (dy - mu_y) / std_y) for dx, dy in grid_displacements[row][col]]
                 
                 else:
-                    print(f"[{row}][{col}] doesn't contain any element to normalize from apply_normalization function {len(grid_displacements[row][col])}")
+                    print(f"[{row}][{col}] doesn't contain any element {len(grid_displacements[row][col])}")
                                 
         return grid_displacements
     
